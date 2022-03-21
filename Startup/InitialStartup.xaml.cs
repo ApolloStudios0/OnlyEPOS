@@ -84,6 +84,9 @@ namespace OnlyEPOS.Startup
                     Tag = Row["StaffUUID"].ToString(),
                     Name = Row["StaffName"].ToString().Replace(" ", "_") + $"_{pageNumber}",
                 };
+                
+                // Hide More Page Buttons
+                if (pageNumber != 0) { btn.Visibility = Visibility.Collapsed; }
 
                 // -- Add Stackpanel & Labels To Button
                 btn.Content = SP;
@@ -98,19 +101,20 @@ namespace OnlyEPOS.Startup
                 LoginButtonGrid.Children.Add(btn);
 
                 // -- Find Next Button Placement
-                if (rowNumber == 3 && colNumber == 2 && i < (staffCount - 1))
+                if (rowNumber == 3 && colNumber == 2)
                 {
-                    colNumber = 1;
-                    rowNumber = 1;
+                    // Reset Back To Start
+                    colNumber = 0;
+                    rowNumber = 0;
                     pageNumber++;
                 }
                 else if (colNumber == 2)
                 {
+                    colNumber = 0;
                     rowNumber++;
-                    colNumber = 1;
                 }
                 else
-                { // increase the column number
+                {
                     colNumber++;
                 }
                 i++;
