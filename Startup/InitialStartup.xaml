@@ -48,7 +48,7 @@
                 <Border Grid.Column="1"
                         Grid.Row="3" Grid.ColumnSpan="3"
                         Grid.RowSpan="7" Margin="30"
-                        BorderBrush="#F97417" BorderThickness="4">
+                        BorderBrush="#F97417" BorderThickness="4" CornerRadius="9">
                     <Grid>
 
                         <!-- Keypad Buttons -->

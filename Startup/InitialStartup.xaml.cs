@@ -69,7 +69,7 @@ namespace OnlyEPOS.Startup
 
                 // -- Label Content
                 Label StaffName = new() { Content = Row["StaffName"].ToString(), FontSize = 21, Height = 34, HorizontalAlignment = HorizontalAlignment.Center };
-                Label StaffRole = new() { Content = Row["StaffRole"].ToString(), FontSize = 10, HorizontalAlignment = HorizontalAlignment.Center, Opacity = 0.5 };
+                Label StaffRole = new() { Content = Row["StaffRole"].ToString(), FontSize = 13, HorizontalAlignment = HorizontalAlignment.Center, Opacity = 0.5 };
 
                 // -- Button Creation
                 Button btn = new Button()
@@ -80,6 +80,7 @@ namespace OnlyEPOS.Startup
                     Width = 200,
                     Height = 120,
                     Tag = pageNumber,
+                    Uid = Row["StaffUUID"].ToString(),
                     Name = Row["StaffName"].ToString().Replace(" ", "_") + $"_{pageNumber}",
                 };
 
@@ -137,8 +138,23 @@ namespace OnlyEPOS.Startup
             // Convert UUID > StaffName
             Button btn = sender as Button;
 
-            // You're Logged In As:
-            MessageBox.Show(btn.Tag.ToString());
+            // Obtain StaffName
+            string StaffPassword = Utility.SQL.GetPasswordFromUUID(btn.Uid);
+
+            // Pop Keyboard
+            Utility.Keyboard keyboard = new();
+            keyboard.ShowDialog();
+            
+            // Match Password
+            if (keyboard.DialogResult == true)
+            {
+                // Get Value
+                string Password = keyboard.UserInputBox.Text.ToString();
+
+                // Check Password
+                if (Password == StaffPassword) { /* Login(btn.Uid); */ }
+                else { MessageBox.Show($"Incorrect Password"); }
+            }
         }
         
         /// <summary>

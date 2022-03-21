@@ -8,7 +8,7 @@
         ResizeMode="NoResize"
         WindowStyle="ToolWindow"
         WindowStartupLocation="CenterScreen"
-        Title="Keyboard" Height="510" Width="1000">
+        Title="" Height="510" Width="1000">
     <Grid>
 
         <Rectangle Stroke="#22d3ee" StrokeThickness="3"
@@ -162,7 +162,7 @@
         <Border Grid.ColumnSpan="3">
             <Grid>
                 <TextBox Text="The quick brown fox jumps over the lazy dog"
-                    VerticalAlignment="Center"
+                    VerticalAlignment="Center" KeyDown="EnterPressed"
                     FontSize="32" x:Name="UserInputBox"/>
                 <Button Height="60" Width="110"
                         Background="White" Grid.Column="1"

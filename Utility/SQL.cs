@@ -111,5 +111,18 @@ namespace OnlyEPOS.Utility
             if (StaffName != null && StaffName != "" && StaffName.Length != 0) { return StaffName; }
             else { return "NO_STAFF_MEMBER_WITH_ACCESS_CODE_FOUND"; }
         }
+
+        public static string GetPasswordFromUUID(string UUID)
+        {
+            var PasswordValue = ExecuteSQLScalar($"Select Password from .[dbo].[StoreLogin] where StaffUUID = '{UUID}'", "CompanyAccess");
+            if (PasswordValue != null && PasswordValue != "" && PasswordValue.Length != 0)
+            {
+                return PasswordValue;
+            }
+            else
+            {
+                return "NO_STAFF_MEMBER_WITH_UUID_CODE_FOUND";
+            }
+        }
     }
 }

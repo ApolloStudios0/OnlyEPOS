@@ -64,10 +64,21 @@ namespace OnlyEPOS.Utility
                     // Handle All Other Buttons
                     else
                     {
+                        UserInputBox.Focus(); 
+                        UserInputBox.ScrollToEnd();
                         if (CapsEnabled) { UserInputBox.Text += b.Content.ToString().ToUpper(); }
                         else { UserInputBox.Text += b.Content.ToString().ToLower(); }
                     }
                     break;
+            }
+        }
+
+        // User Pressed Enter
+        private void EnterPressed(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (UserInputBox.Text != "") { DialogResult = true; } else { this.Close(); }
             }
         }
     }
