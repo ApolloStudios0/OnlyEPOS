@@ -1,5 +1,6 @@
 ﻿global using OnlyEPOS.Settings;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,25 +22,20 @@ namespace OnlyEPOS.Startup
 
             // Create Users
             CreateButtons();
+
+            // Load Pages
+            LoadPages();
             
             // Loading Screen
             LoadingFrame.Content = new EntranceLoadScreen();
             LoadingFrame.Visibility = Visibility.Collapsed;
         }
 
-        // Button Properties
+        /// <summary>
+        /// Load The Buttons That Are Loaded On EPOS Startup (Sign In Screen)
+        /// </summary>
         DataTable StaffMembers = new();
-
-        // Dynmically Create Users
-        // Includes:
-        // - Roles
-        // -- Business Director
-        // -- Management
-        // -- Store Supervisor
-        // -- Retail Assistant
-
-        // Create Buttons Into Grid
-        // -- Show 12 Users Per Page
+        public static int NumberOfStaffButtonsCreated { get; set; }
         public async void CreateButtons()
         {
             // Get List Of Staff
@@ -51,6 +47,7 @@ namespace OnlyEPOS.Startup
             int pageNumber = 0;
             int i = 0;
             int staffCount = StaffMembers.Rows.Count;
+            NumberOfStaffButtonsCreated = StaffMembers.Rows.Count; // For Page Calculations
 
             // Create Buttons
             foreach (DataRow Row in StaffMembers.Rows)
@@ -82,7 +79,7 @@ namespace OnlyEPOS.Startup
                     BorderThickness = new Thickness(3),
                     Width = 200,
                     Height = 120,
-                    Tag = Row["StaffUUID"].ToString(),
+                    Tag = pageNumber,
                     Name = Row["StaffName"].ToString().Replace(" ", "_") + $"_{pageNumber}",
                 };
 
@@ -176,6 +173,103 @@ namespace OnlyEPOS.Startup
                 default:
                     KeypadEntryBox.Text += b.Content;
                     break;
+            }
+        }
+        
+        /// <summary>
+        /// If More Than 12 Staff, Show Page Next Buttons
+        /// </summary>
+        public void LoadPages()
+        {
+            // Check If More Than 12 Buttons
+            if (NumberOfStaffButtonsCreated <= 12)
+            {
+                NextPageOfStaff.Visibility = Visibility.Visible;
+            }
+        }
+
+        /// <summary>
+        /// Staff Page Controls
+        /// </summary>
+        public static int CurrentPage { get; set; } = 0;
+        private void GetNextPageOfStaffMembers(object sender, RoutedEventArgs e)
+        {
+            // Set Values
+            CurrentPage++;
+
+            // Show Next Buttons
+            foreach (Object o in LoginButtonGrid.Children)
+            {
+                if (o is Button)
+                {
+                    Button b = o as Button;
+                    if (b.Tag.ToString() != "NEXT-BUTTON-RESERVED" && b.Tag.ToString() != "NEXT-BUTTON-RESERVED")
+                    {
+                        if (b.Tag.ToString() == CurrentPage.ToString()) 
+                        {
+                            b.Visibility = Visibility.Visible;
+                        }
+                        else { b.Visibility = Visibility.Collapsed; }
+                    }
+                }
+            }
+
+            // Check How Many Buttons Are Visible
+            int NumberOfButtonsVisible = 0;
+            foreach (Object o in LoginButtonGrid.Children)
+            {
+                if (o is Button)
+                {
+                    Button b = o as Button;
+                    if (b.Visibility == Visibility.Visible) { NumberOfButtonsVisible++; }
+                }
+            }
+
+            // If Less Than 12 Buttons, Hide Next Button
+            if (NumberOfButtonsVisible <= 12)
+            {
+                NextPageOfStaff.Visibility = Visibility.Collapsed;
+                PreviousPageOfStaff.Visibility = Visibility.Visible;
+            }
+        }
+        private void GetPreviousPageOfStaffMembers(object sneder, RoutedEventArgs e)
+        {
+            // Set Values
+            CurrentPage--;
+
+            // Show Next Buttons
+            foreach (Object o in LoginButtonGrid.Children)
+            {
+                if (o is Button)
+                {
+                    Button b = o as Button;
+                    if (b.Tag.ToString() != "NEXT-BUTTON-RESERVED" && b.Tag.ToString() != "NEXT-BUTTON-RESERVED")
+                    {
+                        if (b.Tag.ToString() == CurrentPage.ToString())
+                        {
+                            b.Visibility = Visibility.Visible;
+                        }
+                        else { b.Visibility = Visibility.Collapsed; }
+                    }
+                }
+            }
+
+            // Check How Many Buttons Are Visible
+            int NumberOfButtonsVisible = 0;
+            foreach (Object o in LoginButtonGrid.Children)
+            {
+                if (o is Button)
+                {
+                    Button b = o as Button;
+                    if (b.Visibility == Visibility.Visible) { NumberOfButtonsVisible++; }
+                }
+            }
+
+            // If More Than 12 Buttons, Show Next Button
+            if (NumberOfButtonsVisible >= 12)
+            {
+                NextPageOfStaff.Visibility = Visibility.Visible;
+                PreviousPageOfStaff.Visibility = Visibility.Collapsed;
             }
         }
     }

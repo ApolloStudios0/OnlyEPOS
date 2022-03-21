@@ -213,22 +213,29 @@
                       Grid.ColumnSpan="4" Grid.RowSpan="5"
                       x:Name="LoginButtonGrid">
 
-                    <!-- ## EXAMPLE BUTTON - UNCOMMENT TO REVEAL -->
-                    <!--<Button Width="200" Height="120"
+                    <Button Width="200" Height="70" x:Name="NextPageOfStaff"
                             Background="Transparent"
-                            BorderBrush="#F97417" BorderThickness="2">
+                            BorderBrush="#F97417" BorderThickness="2"
+                            Grid.Column="3" Grid.Row="5" Visibility="Collapsed"
+                            Click="GetNextPageOfStaffMembers"
+                            Tag="NEXT-BUTTON-RESERVED">
                         <StackPanel>
-                            <Ellipse Width="55" Height="55">
-                                <Ellipse.Fill>
-                                    <ImageBrush ImageSource="/Images/OrangeBG.png" Stretch="Fill"/>
-                                </Ellipse.Fill>
-                            </Ellipse>
-
-                            <Label Content="James B" HorizontalAlignment="Center" FontSize="21" Height="31"/>
-                            <Label Content="(Business Director)" HorizontalAlignment="Center"
-                                   FontSize="10" Opacity="0.5"/>
+                            <Label Content="Next >" HorizontalAlignment="Center" FontSize="21" Height="31"
+                                   FontWeight="Bold"/>
                         </StackPanel>
-                    </Button>-->
+                    </Button>
+
+                    <Button Width="200" Height="70" x:Name="PreviousPageOfStaff"
+                            Background="Transparent"
+                            BorderBrush="#F97417" BorderThickness="2"
+                            Grid.Row="5" Visibility="Collapsed"
+                            Click="GetPreviousPageOfStaffMembers"
+                            Tag="PREVIOUS-BUTTON-RESERVED">
+                        <StackPanel>
+                            <Label Content="&lt; Previous" HorizontalAlignment="Center" FontSize="21" Height="31"
+                                   FontWeight="Bold"/>
+                        </StackPanel>
+                    </Button>
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
