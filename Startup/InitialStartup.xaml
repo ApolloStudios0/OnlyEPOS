@@ -16,9 +16,6 @@
 
     <Grid>
 
-        <!-- Show Loading Screen First -->
-        <Frame x:Name="LoadingFrame"/>
-
         <Image Source="/Images/abstract_background_3-wallpaper-1920x1200.jpg"
                Grid.ColumnSpan="12" Grid.RowSpan="12" Margin="-100"
                RenderOptions.BitmapScalingMode="Fant"
@@ -273,6 +270,8 @@
         </Border>
 
         <Label Content="UsernameHere" FontSize="20" x:Name="LogTest"/>
+
+        <Frame x:Name="LoadingFrame" Grid.ColumnSpan="12" Grid.RowSpan="12"/>
         <!-- Form Definitions -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

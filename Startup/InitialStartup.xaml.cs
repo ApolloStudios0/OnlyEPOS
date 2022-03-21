@@ -28,6 +28,31 @@ namespace OnlyEPOS.Startup
             
             // Loading Screen
             LoadingFrame.Content = new EntranceLoadScreen();
+            FadeoutLoader();
+        }
+        
+        async void FadeoutLoader()
+        {
+            // Fade opacity to zero
+            await Task.Delay(3000);
+            LoadingFrame.Opacity = 0.9;
+            await Task.Delay(40);
+            LoadingFrame.Opacity = 0.8;
+            await Task.Delay(40);
+            LoadingFrame.Opacity = 0.7;
+            await Task.Delay(40);
+            LoadingFrame.Opacity = 0.6;
+            await Task.Delay(40);
+            LoadingFrame.Opacity = 0.5;
+            await Task.Delay(40);
+            LoadingFrame.Opacity = 0.4;
+            await Task.Delay(40);
+            LoadingFrame.Opacity = 0.3;
+            await Task.Delay(40);
+            LoadingFrame.Opacity = 0.2;
+            await Task.Delay(40);
+            LoadingFrame.Opacity = 0.1;
+
             LoadingFrame.Visibility = Visibility.Collapsed;
         }
 
