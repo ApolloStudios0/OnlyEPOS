@@ -19,6 +19,11 @@
         <!-- Show Loading Screen First -->
         <Frame x:Name="LoadingFrame"/>
 
+        <Image Source="/Images/abstract_background_3-wallpaper-1920x1200.jpg"
+               Grid.ColumnSpan="12" Grid.RowSpan="12" Margin="-100"
+               RenderOptions.BitmapScalingMode="Fant"
+               Opacity="0.4"/>
+
         <!-- Staff Access Code -->
         <Border Grid.Column="3" Grid.ColumnSpan="2"
                 Grid.RowSpan="4">
@@ -27,112 +32,104 @@
                 <!-- Left Line -->
                 <Rectangle Fill="#F97417"
                        HorizontalAlignment="Left"
-                       Width="3" Grid.RowSpan="12"/>
+                       Width="3" Grid.RowSpan="12"
+                           Opacity="0.5"/>
 
                 <!-- Text & Labels -->
-                <Label Content="Or, Log in Using"
-                       Grid.Column="1" Grid.Row="1"
-                       Grid.ColumnSpan="3"
-                       HorizontalAlignment="Center"
-                       FontSize="21"
-                       FontFamily="Ubuntu"
-                       Opacity="0.4"
-                       Foreground="#F97417"/>
                 <Label Content="Staff Access Code"
                        Grid.Column="1" Grid.Row="1"
                        Grid.ColumnSpan="3"
                        HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                       FontSize="32"
+                       FontSize="30"
                        FontFamily="Ubuntu"
-                       Opacity="1"
-                       Foreground="#F97417"/>
+                       Opacity="1"/>
 
                 <!-- Key Pad -->
                 <Border Grid.Column="1"
                         Grid.Row="3" Grid.ColumnSpan="3"
-                        Grid.RowSpan="7" Margin="15"
+                        Grid.RowSpan="7" Margin="30"
                         BorderBrush="#F97417" BorderThickness="4">
                     <Grid>
 
                         <!-- Keypad Buttons -->
                         <Button Height="100" Width="100"
-                                Background="Transparent"
+                                Background="White"
                                 BorderBrush="#F97417"
                                 Content="1" Foreground="#F97417"
                                 FontSize="30" FontWeight="Bold"
                                 Click="KeypadAdvisor"/>
                         <Button Height="100" Width="100"
-                                Background="Transparent"
+                                Background="White"
                                 BorderBrush="#F97417"
                                 Content="2" Foreground="#F97417"
                                 FontSize="30" FontWeight="Bold"
                                 Grid.Column="1"
                                 Click="KeypadAdvisor"/>
                         <Button Height="100" Width="100"
-                                Background="Transparent"
+                                Background="White"
                                 BorderBrush="#F97417"
                                 Content="7" Foreground="#F97417"
                                 FontSize="30" FontWeight="Bold"
                                 Grid.Row="2"
                                 Click="KeypadAdvisor"/>
                         <Button Height="100" Width="100"
-                                Background="Transparent"
+                                Background="White"
                                 BorderBrush="#F97417"
                                 Content="3" Foreground="#F97417"
                                 FontSize="30" FontWeight="Bold"
                                 Grid.Column="3"
                                 Click="KeypadAdvisor"/>
                         <Button Height="100" Width="100"
-                                Background="Transparent"
+                                Background="White"
                                 BorderBrush="#F97417"
                                 Content="4" Foreground="#F97417"
                                 FontSize="30" FontWeight="Bold"
                                 Grid.Row="1"
                                 Click="KeypadAdvisor"/>
                         <Button Height="100" Width="100"
-                                Background="Transparent"
+                                Background="White"
                                 BorderBrush="#F97417"
                                 Content="5" Foreground="#F97417"
                                 FontSize="30" FontWeight="Bold"
                                 Grid.Row="1" Grid.Column="1"
                                 Click="KeypadAdvisor"/>
                         <Button Height="100" Width="100"
-                                Background="Transparent"
+                                Background="White"
                                 BorderBrush="#F97417"
                                 Content="6" Foreground="#F97417"
                                 FontSize="30" FontWeight="Bold"
                                 Grid.Row="1" Grid.Column="3"
                                 Click="KeypadAdvisor"/>
                         <Button Height="100" Width="100"
-                                Background="Transparent"
+                                Background="White"
                                 BorderBrush="#F97417"
                                 Content="8" Foreground="#F97417"
                                 FontSize="30" FontWeight="Bold"
                                 Grid.Row="2" Grid.Column="1"
                                 Click="KeypadAdvisor"/>
                         <Button Height="100" Width="100"
-                                Background="Transparent"
+                                Background="White"
                                 BorderBrush="#F97417"
                                 Content="9" Foreground="#F97417"
                                 FontSize="30" FontWeight="Bold"
                                 Grid.Row="2" Grid.Column="3"
                                 Click="KeypadAdvisor"/>
                         <Button Height="100" Width="100"
-                                Background="Transparent"
+                                Background="White"
                                 BorderBrush="#F97417"
                                 Content="✅" Foreground="#F97417"
                                 FontSize="30" FontWeight="Bold"
                                 Grid.Row="3" Grid.Column="3"
                                 Click="KeypadAdvisor"/>
                         <Button Height="100" Width="100"
-                                Background="Transparent"
+                                Background="White"
                                 BorderBrush="#F97417"
                                 Content="0" Foreground="#F97417"
                                 FontSize="30" FontWeight="Bold"
                                 Grid.Row="3" Grid.Column="1"
                                 Click="KeypadAdvisor"/>
                         <Button Height="100" Width="100"
-                                Background="Transparent"
+                                Background="White"
                                 BorderBrush="#F97417"
                                 Content="X" Foreground="#F97417"
                                 FontSize="30" FontWeight="Bold"
@@ -205,11 +202,11 @@
                 <!-- Welcome Content -->
                 <Image Source="/Images/LargeLogo.png" RenderOptions.BitmapScalingMode="Fant"
                        Grid.Column="2" Grid.ColumnSpan="2"
-                       Grid.RowSpan="2" Width="100"/>
+                       Grid.RowSpan="2" Width="100" Margin="0,0,0,80"/>
                 <Label Content="Hello, Please Select A User"
                        Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"
                        HorizontalAlignment="Center" VerticalAlignment="Center"
-                       FontSize="30" FontFamily="Ubuntu"/>
+                       FontSize="30" FontFamily="Ubuntu" Margin="0,0,0,85"/>
 
                 <!-- Grid Where Dynamic Buttons Sit In -->
                 <Grid Grid.Column="1" Grid.Row="2"

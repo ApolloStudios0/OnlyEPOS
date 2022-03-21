@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -76,15 +77,25 @@ namespace OnlyEPOS.Startup
                 // -- Button Creation
                 Button btn = new Button()
                 {
-                    Background = Brushes.Transparent,
+                    Background = Brushes.White,
                     BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom(Row["StaffColour"].ToString()),
-                    BorderThickness = new Thickness(2),
+                    BorderThickness = new Thickness(3),
                     Width = 200,
                     Height = 120,
                     Tag = Row["StaffUUID"].ToString(),
                     Name = Row["StaffName"].ToString().Replace(" ", "_") + $"_{pageNumber}",
                 };
-                
+
+                // Add DropShadow to button
+                DropShadowEffect dse = new DropShadowEffect()
+                {
+                    Color = Brushes.Black.Color,
+                    ShadowDepth = 0,
+                    Opacity = 0.5,
+                    BlurRadius = 5,
+                };
+                btn.Effect = dse;
+
                 // Hide More Page Buttons
                 if (pageNumber != 0) { btn.Visibility = Visibility.Collapsed; }
 
