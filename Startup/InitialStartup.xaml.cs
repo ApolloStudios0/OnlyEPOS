@@ -166,7 +166,8 @@ namespace OnlyEPOS.Startup
                     string UserLogin = Utility.SQL.GetStaffFromAccessCode(KeypadEntryBox.Text);
 
                     // Proceed With Login
-                    if (UserLogin != "NO_STAFF_MEMBER_WITH_ACCESS_CODE_FOUND") { LogTest.Content = UserLogin; KeypadEntryBox.Text = ""; }
+                    if (UserLogin != "NO_STAFF_MEMBER_WITH_ACCESS_CODE_FOUND" && UserLogin != "DEV-FLAG-GIVEN") { LogTest.Content = UserLogin; KeypadEntryBox.Text = ""; }
+                    else if (UserLogin == "DEV-FLAG-GIVEN") { Utility.Keyboard k = new(); k.ShowDialog(); KeypadEntryBox.Text = ""; }
                     else { LogTest.Content = "Invalid Access Code"; }
                     break;
 
@@ -189,7 +190,7 @@ namespace OnlyEPOS.Startup
         }
 
         /// <summary>
-        /// Staff Page Controls
+        /// Staff Page Controls (Next/Previous)
         /// </summary>
         public static int CurrentPage { get; set; } = 0;
         private void GetNextPageOfStaffMembers(object sender, RoutedEventArgs e)

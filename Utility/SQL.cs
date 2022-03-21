@@ -98,6 +98,12 @@ namespace OnlyEPOS.Utility
         /// </summary>
         public static string GetStaffFromAccessCode(string AccessCode)
         {
+            // Check For Dev Code Entered
+            if (AccessCode == "3141")
+            {
+                return "DEV-FLAG-GIVEN";
+            }
+            
             // Ask Server
             string StaffName = ExecuteSQLScalar($"Select [StaffName] From .[dbo].[StoreLogin] where [AccessCode] = '{AccessCode}'", "CompanyAccess");
 
