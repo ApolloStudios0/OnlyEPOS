@@ -37,20 +37,17 @@ namespace OnlyEPOS.Utility
         /// <summary>
         /// Asynchronously Executes A NON-Query against till 1 & Returns No Result (string QueryToExecute)
         /// </summary>
-        public static Task ExecuteThisQuery(string QueryToExecute)
+        public static void ExecuteThisQuery(string QueryToExecute)
         {
-            return Task.Run(() =>
+            try
             {
-                try
+                using (SqlConnection connection = new SqlConnection(Settings.SQL.ConnectionString))
                 {
-                    using (SqlConnection connection = new SqlConnection(Settings.SQL.ConnectionString))
-                    {
-                        SqlCommand command = new SqlCommand(QueryToExecute, connection);
-                        command.Connection.Open(); command.ExecuteNonQuery(); command.Connection.Close();
-                    }
+                    SqlCommand command = new SqlCommand(QueryToExecute, connection);
+                    command.Connection.Open(); command.ExecuteNonQuery(); command.Connection.Close();
                 }
-                catch { Logs.LogError("Error Executing Query: " + QueryToExecute); }
-            });
+            }
+            catch { Logs.LogError("Error Executing Query: " + QueryToExecute); }
         }
 
         /// <summary>

@@ -8,13 +8,11 @@
 
   <ItemGroup>
     <None Remove="Images\abstract_background_3-wallpaper-1920x1200.jpg" />
+    <None Remove="Images\DefaultImage.png" />
     <None Remove="Images\LargeLogo.png" />
+    <None Remove="Images\ModernWallpaperMain.jpg" />
     <None Remove="Images\OrangeBG.png" />
     <None Remove="Images\wallpapersden.com_multicolor-abstract-background_1920x1080.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Menus\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,7 +23,9 @@
 
   <ItemGroup>
     <Resource Include="Images\abstract_background_3-wallpaper-1920x1200.jpg" />
+    <Resource Include="Images\DefaultImage.png" />
     <Resource Include="Images\LargeLogo.png" />
+    <Resource Include="Images\ModernWallpaperMain.jpg" />
     <Resource Include="Images\OrangeBG.png" />
     <Resource Include="Images\wallpapersden.com_multicolor-abstract-background_1920x1080.jpg" />
   </ItemGroup>

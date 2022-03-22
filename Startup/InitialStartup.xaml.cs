@@ -177,9 +177,26 @@ namespace OnlyEPOS.Startup
                 string Password = keyboard.UserInputBox.Text.ToString();
 
                 // Check Password
-                if (Password == StaffPassword) { /* Login(btn.Uid); */ }
+                if (Password == StaffPassword) { LoginUser(btn.Uid); }
                 else { MessageBox.Show($"Incorrect Password"); }
             }
+        }
+
+        public void LoginUser(string UUID)
+        {
+            // Log To Server
+            Utility.SQL.ExecuteThisQuery($"Insert Into .[dbo].[StaffLogs] VALUES ('1', GetDate(), '{UUID}')");
+
+            // Log Info Locally
+            Utility.CurrentStaffInformation.StaffUUID = UUID;
+            Utility.CurrentStaffInformation.StaffMemberName = Utility.SQL.ExecuteSQLScalar($"Select [StaffName] From .[dbo].[StoreLogin] Where StaffUUID = '{UUID}'", "CompanyAccess");
+            Utility.CurrentStaffInformation.StaffProfilePicture = Utility.SQL.ExecuteSQLScalar($"Select [StaffImage] From .[dbo].[StaffLoginColours] Where StaffUUID = '{UUID}'", "CompanyAccess");
+            Utility.CurrentStaffInformation.StaffColor = Utility.SQL.ExecuteSQLScalar($"Select [StaffColour] From .[dbo].[StaffLoginColours] Where StaffUUID = '{UUID}'", "CompanyAccess");
+
+            // Proceed
+            Menus.MainMenu MainMenu = new();
+            MainMenu.Show();
+            this.Close();
         }
         
         /// <summary>
@@ -274,7 +291,7 @@ namespace OnlyEPOS.Startup
                 PreviousPageOfStaff.Visibility = Visibility.Visible;
             }
         }
-        private void GetPreviousPageOfStaffMembers(object sneder, RoutedEventArgs e)
+        private void GetPreviousPageOfStaffMembers(object sender, RoutedEventArgs e)
         {
             // Set Values
             CurrentPage--;
