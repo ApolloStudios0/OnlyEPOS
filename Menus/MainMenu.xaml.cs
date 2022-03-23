@@ -45,5 +45,27 @@ namespace OnlyEPOS.Menus
                 Welcome_StaffName.Content = $"Hello, {Utility.CurrentStaffInformation.StaffMemberName}";
             }
         }
+
+        /// <summary>
+        /// Handles All Button Click Events In The Main Screen (Based On Item Name)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainButtonHandler(object sender, RoutedEventArgs e)
+        {
+            // Route
+            Button Sender = sender as Button;
+
+            // Check If Button Is Null
+            switch (Sender.Name)
+            {
+                // Sign User Out
+                case "SignOutButton":
+                    Startup.InitialStartup IS = new();
+                    IS.Show();
+                    this.Close();
+                    break;
+            }
+        }
     }
 }

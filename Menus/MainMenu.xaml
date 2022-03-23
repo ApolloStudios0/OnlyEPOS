@@ -46,7 +46,7 @@
                                 Foreground="Black"
                                 FontFamily="Ubuntu"
                                 BorderBrush="Firebrick" BorderThickness="1"
-                                x:Name="SignOutButton" Margin="5,-6,0,0"/>
+                                x:Name="SignOutButton" Margin="5,-6,0,0" Click="MainButtonHandler"/>
                 <Button Grid.Row="2" Grid.Column="1"
                                 Content="Print Last Receipt"
                                 Background="White"
@@ -67,7 +67,7 @@
             </Grid>
         </Border>
         
-        <!-- Recent Sales Datagrid -->
+        <!-- Recent Sales List Items -->
         <Border Grid.Row="1" Grid.ColumnSpan="2"
                 Grid.RowSpan="12" Margin="6,10,0,0"
                 BorderBrush="#F97417" BorderThickness="2">
@@ -77,6 +77,15 @@
                 <Rectangle Fill="White" />
                 <ListView Background="White"/>
                 
+                
+            </Grid>
+        </Border>
+        
+        <!-- OnlyEPOS App Screen (Main Icons) -->
+        <Border Grid.Column="2" Grid.ColumnSpan="12" Grid.RowSpan="12">
+            
+            <!-- MAIN GRID -->
+            <Grid>
                 
             </Grid>
         </Border>
