@@ -4,13 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OnlyEPOS.Menus" 
-        xmlns:avalondock="https://github.com/Dirkster99/AvalonDock" xmlns:avalondock1="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:avalondock="https://github.com/Dirkster99/AvalonDock" 
+        xmlns:avalondock1="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Loaded="Window_Loaded"
-        Title="Manage Your Stock" Height="950" Width="1440">
+        Title="Manage Your Stock" Height="1000" Width="1700">
     <Grid>
 
+        <!-- Top Menu Bar-->
         <DockPanel x:Name="dockManager">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="Product">
@@ -36,22 +38,98 @@
                 <MenuItem Header="Store Management">
                     <MenuItem Header="Stock Check" />
                 </MenuItem>
+                <MenuItem Header="Layout" >
+                    <MenuItem Header="Edit Layout" Click="OpenLayoutEditor"/>
+                    <MenuItem Header="Save Layout" />
+                    <MenuItem Header="Load Layout" />
+                </MenuItem>
             </Menu>
         </DockPanel>
 
+        <!-- Avalon Dock (Snapping Grips To Areas) -->
         <avalondock:DockingManager Grid.Row="1">
             <avalondock:DockingManager.Theme>
                 <MetroTheme/>
             </avalondock:DockingManager.Theme>
             <avalondock:LayoutRoot>
                 <avalondock:LayoutPanel >
-                    <avalondock:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="250" FloatingWidth="300">
+                    <avalondock:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="280" FloatingWidth="300">
                         <avalondock:LayoutAnchorablePane>
                             <avalondock:LayoutAnchorable Title="Product Information">
                             </avalondock:LayoutAnchorable>
                         </avalondock:LayoutAnchorablePane>
                         <avalondock:LayoutAnchorablePane>
-                            <avalondock:LayoutAnchorable Title="Product Image">
+                            <avalondock:LayoutAnchorable Title="Product Search">
+                                <Grid x:Name="ProductSearchGrid">
+                                    <Button Background="White" BorderBrush="Orange" Content="Search" Foreground="Black" Height="27" x:Name="StockSearchButton" Click="StockSearchAdvisor"/>
+                                    <TextBox Grid.Row="1" VerticalContentAlignment="Center" BorderBrush="Transparent" x:Name="Name_Of_Item">
+                                        <materialDesign:HintAssist.Hint>
+                                            <TextBlock Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center">Name Of Item</TextBlock>
+                                        </materialDesign:HintAssist.Hint>
+                                    </TextBox>
+                                    <TextBox Grid.Row="2" VerticalContentAlignment="Center" BorderBrush="Transparent" x:Name="Barcode">
+                                        <materialDesign:HintAssist.Hint>
+                                            <TextBlock Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center">Barcode</TextBlock>
+                                        </materialDesign:HintAssist.Hint>
+                                    </TextBox>
+                                    <TextBox Grid.Row="3" VerticalContentAlignment="Center" BorderBrush="Transparent" x:Name="Quantity_Above">
+                                        <materialDesign:HintAssist.Hint>
+                                            <TextBlock Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center">Quantity Above</TextBlock>
+                                        </materialDesign:HintAssist.Hint>
+                                    </TextBox>
+                                    <TextBox Grid.Row="4" VerticalContentAlignment="Center" BorderBrush="Transparent" x:Name="Quantity_Below">
+                                        <materialDesign:HintAssist.Hint>
+                                            <TextBlock Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center">Quantity Below</TextBlock>
+                                        </materialDesign:HintAssist.Hint>
+                                    </TextBox>
+                                    <TextBox Grid.Row="5" VerticalContentAlignment="Center" BorderBrush="Transparent" x:Name="Type">
+                                        <materialDesign:HintAssist.Hint>
+                                            <TextBlock Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center">Type of Item</TextBlock>
+                                        </materialDesign:HintAssist.Hint>
+                                    </TextBox>
+                                    <TextBox Grid.Row="6" VerticalContentAlignment="Center" BorderBrush="Transparent" x:Name="Subtype">
+                                        <materialDesign:HintAssist.Hint>
+                                            <TextBlock Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center">Subtype</TextBlock>
+                                        </materialDesign:HintAssist.Hint>
+                                    </TextBox>
+                                    <TextBox Grid.Row="7" VerticalContentAlignment="Center" BorderBrush="Transparent" x:Name="Supplier_Name">
+                                        <materialDesign:HintAssist.Hint>
+                                            <TextBlock Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center">Supplier Name</TextBlock>
+                                        </materialDesign:HintAssist.Hint>
+                                    </TextBox>
+                                    <TextBox Grid.Row="8" VerticalContentAlignment="Center" BorderBrush="Transparent" x:Name="Supplier_Code">
+                                        <materialDesign:HintAssist.Hint>
+                                            <TextBlock Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center">Supplier Code</TextBlock>
+                                        </materialDesign:HintAssist.Hint>
+                                    </TextBox>
+                                    <TextBox Grid.Row="9" VerticalContentAlignment="Center" BorderBrush="Transparent" x:Name="Not_Sold_In_Last_X_Days">
+                                        <materialDesign:HintAssist.Hint>
+                                            <TextBlock Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center">Not Sold In Last X Days</TextBlock>
+                                        </materialDesign:HintAssist.Hint>
+                                    </TextBox>
+                                    <TextBox Grid.Row="10" VerticalContentAlignment="Center" BorderBrush="Transparent" x:Name="Internal_Reference_Code">
+                                        <materialDesign:HintAssist.Hint>
+                                            <TextBlock Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center">Internal Reference Code</TextBlock>
+                                        </materialDesign:HintAssist.Hint>
+                                    </TextBox>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="32"/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                </Grid>
                             </avalondock:LayoutAnchorable>
                         </avalondock:LayoutAnchorablePane>
                     </avalondock:LayoutAnchorablePaneGroup>
@@ -60,16 +138,11 @@
                             <avalondock:LayoutDocumentPane>
                                 <avalondock:LayoutDocument Title="Stock">
                                     <Border>
-                                        <TreeView>
-                                            <TreeViewItem Header="Level 1" IsExpanded="True">
-                                                <TreeViewItem Header="Level 2.1" />
-                                                <TreeViewItem Header="Level 2.2" IsExpanded="True">
-                                                    <TreeViewItem Header="Level 3.1" />
-                                                    <TreeViewItem Header="Level 3.2" />
-                                                </TreeViewItem>
-                                                <TreeViewItem Header="Level 2.3" />
-                                            </TreeViewItem>
-                                        </TreeView>
+                                        <DataGrid x:Name="StockDataGrid"
+                                                  AutoGenerateColumns="False"
+                                                  CanUserAddRows="False"
+                                                  CanUserDeleteRows="False">
+                                        </DataGrid>
                                     </Border>
                                 </avalondock:LayoutDocument>
                                 <avalondock:LayoutDocument Title="Suppliers">

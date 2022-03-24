@@ -1,0 +1,75 @@
+﻿<Window x:Class="OnlyEPOS.Utility.StockLayoutEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OnlyEPOS.Utility"
+        mc:Ignorable="d"
+        Title="Edit Your Layout" Height="450" Width="400">
+    <Grid x:Name="MainGrid">
+
+        <Label Content="Name of Item" VerticalContentAlignment="Center"
+               HorizontalAlignment="Center"/>
+        <Label Content="Quantity" VerticalContentAlignment="Center" Grid.Row="1"
+               HorizontalAlignment="Center"/>
+        <Label Content="Weight" VerticalContentAlignment="Center"  Grid.Row="2"
+               HorizontalAlignment="Center"/>
+        <Label Content="Selling Price" VerticalContentAlignment="Center" Grid.Row="3"
+               HorizontalAlignment="Center"/>
+        <Label Content="Supplier Cost" VerticalContentAlignment="Center" Grid.Row="4"
+               HorizontalAlignment="Center"/>
+        <Label Content="Supplier Code" VerticalContentAlignment="Center" Grid.Row="5"
+               HorizontalAlignment="Center"/>
+        <Label Content="Internal Reference Code" VerticalContentAlignment="Center" Grid.Row="6"
+               HorizontalAlignment="Center"/>
+        <Label Content="Warehouse Location" VerticalContentAlignment="Center" Grid.Row="7"
+               HorizontalAlignment="Center"/>
+        <Label Content="Min" VerticalContentAlignment="Center" Grid.Row="8"
+               HorizontalAlignment="Center"/>
+        <Label Content="Max" VerticalContentAlignment="Center" Grid.Row="9"
+               HorizontalAlignment="Center"/>
+        <Label Content="Type" VerticalContentAlignment="Center" Grid.Row="10"
+               HorizontalAlignment="Center"/>
+        <Label Content="Subtype" VerticalContentAlignment="Center" Grid.Row="11"
+               HorizontalAlignment="Center"/>
+        <Label Content="Barcode" VerticalContentAlignment="Center" Grid.Row="12"
+               HorizontalAlignment="Center"/>
+
+        <CheckBox Grid.Column="1" x:Name="Name_Of_Item" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <CheckBox Grid.Column="1" x:Name="Quantity" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <CheckBox Grid.Column="1" x:Name="Weight" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <CheckBox Grid.Column="1" x:Name="Selling_Price" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <CheckBox Grid.Column="1" x:Name="Supplier_Cost" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <CheckBox Grid.Column="1" x:Name="Supplier_Code" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <CheckBox Grid.Column="1" x:Name="Internal_Reference_Code" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <CheckBox Grid.Column="1" x:Name="Warehouse_Location" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <CheckBox Grid.Column="1" x:Name="Min" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <CheckBox Grid.Column="1" x:Name="Max" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <CheckBox Grid.Column="1" x:Name="Type" Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <CheckBox Grid.Column="1" x:Name="Subtype" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <CheckBox Grid.Column="1" x:Name="Barcode" Grid.Row="12" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+        <Button Grid.Row="13" Grid.Column="1" Margin="0,5,0,0" Content="Save" Foreground="White" Click="SaveLayout"/>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+    </Grid>
+</Window>

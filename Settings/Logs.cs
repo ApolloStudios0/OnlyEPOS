@@ -22,7 +22,7 @@ namespace OnlyEPOS.Settings
                 // Get Call Method & Time For Logs
                 var TimeNow = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
                 StackTrace stackTrace = new StackTrace();
-                File.AppendAllText("SystemLogs/SystemLogs.txt", $"🚀 ~ {TimeNow} [Caller: {stackTrace.GetFrame(1).GetMethod().Name}] ~ {ErrorToLog}\n");
+                File.AppendAllTextAsync("SystemLogs/SystemLogs.txt", $"🚀 ~ {TimeNow} [Caller: {stackTrace.GetFrame(1).GetMethod().Name}] ~ {ErrorToLog}\n");
             }
         }
     }

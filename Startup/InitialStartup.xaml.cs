@@ -64,7 +64,7 @@ namespace OnlyEPOS.Startup
         public async void CreateButtons()
         {
             // Get List Of Staff
-            StaffMembers = await Utility.SQL.GetSQLData("Select * From .[Dbo].[StaffLoginColours]", "CompanyAccess");
+            StaffMembers = await Utility.SQL.GetSQLData("Select * From .[Dbo].[StaffLoginColours]", "OnlyEPOS");
 
             // Dynamic Values
             int colNumber = 0;
@@ -189,9 +189,9 @@ namespace OnlyEPOS.Startup
 
             // Log Info Locally
             Utility.CurrentStaffInformation.StaffUUID = UUID;
-            Utility.CurrentStaffInformation.StaffMemberName = Utility.SQL.ExecuteSQLScalar($"Select [StaffName] From .[dbo].[StoreLogin] Where StaffUUID = '{UUID}'", "CompanyAccess");
-            Utility.CurrentStaffInformation.StaffProfilePicture = Utility.SQL.ExecuteSQLScalar($"Select [StaffImage] From .[dbo].[StaffLoginColours] Where StaffUUID = '{UUID}'", "CompanyAccess");
-            Utility.CurrentStaffInformation.StaffColor = Utility.SQL.ExecuteSQLScalar($"Select [StaffColour] From .[dbo].[StaffLoginColours] Where StaffUUID = '{UUID}'", "CompanyAccess");
+            Utility.CurrentStaffInformation.StaffMemberName = Utility.SQL.ExecuteSQLScalar($"Select [StaffName] From .[dbo].[StoreLogin] Where StaffUUID = '{UUID}'", "OnlyEPOS");
+            Utility.CurrentStaffInformation.StaffProfilePicture = Utility.SQL.ExecuteSQLScalar($"Select [StaffImage] From .[dbo].[StaffLoginColours] Where StaffUUID = '{UUID}'", "OnlyEPOS");
+            Utility.CurrentStaffInformation.StaffColor = Utility.SQL.ExecuteSQLScalar($"Select [StaffColour] From .[dbo].[StaffLoginColours] Where StaffUUID = '{UUID}'", "OnlyEPOS");
 
             // Proceed
             Menus.MainMenu MainMenu = new();

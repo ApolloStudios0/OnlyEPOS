@@ -53,7 +53,7 @@ namespace OnlyEPOS.Utility
         /// <summary>
         /// Asynchronously Executes A Query Against Till 1 & Returns The Result As Scalar Obj (string QueryToExecute)
         /// </summary>
-        public static string DatabaseToExecuteAgainst { get; set; } = "CompanyAccess";
+        public static string DatabaseToExecuteAgainst { get; set; } = "OnlyEPOS";
         public static string ExecuteSQLScalar(string QueryToExecute, string ExecuteAgainst)
         {
             using (SqlConnection connection = new SqlConnection(Settings.SQL.ConnectionString))
@@ -102,7 +102,7 @@ namespace OnlyEPOS.Utility
             }
             
             // Ask Server
-            string StaffName = ExecuteSQLScalar($"Select [StaffName] From .[dbo].[StoreLogin] where [AccessCode] = '{AccessCode}'", "CompanyAccess");
+            string StaffName = ExecuteSQLScalar($"Select [StaffName] From .[dbo].[StoreLogin] where [AccessCode] = '{AccessCode}'", "OnlyEPOS");
 
             // Check & Return
             if (StaffName != null && StaffName != "" && StaffName.Length != 0) { return StaffName; }
@@ -111,7 +111,7 @@ namespace OnlyEPOS.Utility
 
         public static string GetPasswordFromUUID(string UUID)
         {
-            var PasswordValue = ExecuteSQLScalar($"Select Password from .[dbo].[StoreLogin] where StaffUUID = '{UUID}'", "CompanyAccess");
+            var PasswordValue = ExecuteSQLScalar($"Select Password from .[dbo].[StoreLogin] where StaffUUID = '{UUID}'", "OnlyEPOS");
             if (PasswordValue != null && PasswordValue != "" && PasswordValue.Length != 0)
             {
                 return PasswordValue;
