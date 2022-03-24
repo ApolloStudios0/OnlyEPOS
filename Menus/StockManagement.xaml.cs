@@ -60,6 +60,9 @@ namespace OnlyEPOS.Menus
             CheckDataColumns();
         }
         
+        /// <summary>
+        /// Dynamically Bind Columns Using Active Stock Columns
+        /// </summary>
         private async void CheckDataColumns()
         {
             // Clear Old Columns
@@ -79,12 +82,63 @@ namespace OnlyEPOS.Menus
             }
         }
 
+        /// <summary>
+        /// Open Stock Layout Editor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenLayoutEditor(object sender, RoutedEventArgs e)
         {
             Utility.StockLayoutEditor SLE = new();
             SLE.ShowDialog();
             
             if (SLE.DialogResult == true) { this.Close(); } // Close to refresh view
+        }
+
+        /// <summary>
+        /// Dynmically Edit & Save DataGrid Edits To The Stock Table
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StockDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            // Get Current Row
+            DataRowView CurrentRow = e.Row.Item as DataRowView;
+
+            // Get Current Column
+            string CurrentColumn = e.Column.Header.ToString();
+
+            // Get Cell Value
+            string CellValue = e.EditingElement.GetValue(TextBox.TextProperty).ToString();
+
+            // Get StockUUID From Current Row
+            string StockUUID = CurrentRow["StockUUID"].ToString();
+
+            // Send Parameterized Query
+            SqlCommand cmd = new($"UPDATE Stock SET [{CurrentColumn}] = @StockValue WHERE StockUUID = @StockUUID", new SqlConnection(SQL.ConnectionString))
+            {
+                Parameters =
+                    {
+                        new SqlParameter("@StockValue", CellValue),
+                        new SqlParameter("@StockUUID", StockUUID),
+                    }
+            };
+            
+            // Execute With Try
+            try
+            {
+                if (cmd.Connection.State == ConnectionState.Closed) { cmd.Connection.Open(); }
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Logs.LogError(ex.Message);
+            }
+            finally
+            {
+                if (cmd.Connection.State == ConnectionState.Open) { cmd.Connection.Close(); }
+                cmd.Dispose();
+            }
         }
     }
 }

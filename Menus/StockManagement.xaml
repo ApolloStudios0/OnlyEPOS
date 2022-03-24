@@ -40,8 +40,6 @@
                 </MenuItem>
                 <MenuItem Header="Layout" >
                     <MenuItem Header="Edit Layout" Click="OpenLayoutEditor"/>
-                    <MenuItem Header="Save Layout" />
-                    <MenuItem Header="Load Layout" />
                 </MenuItem>
             </Menu>
         </DockPanel>
@@ -138,7 +136,7 @@
                             <avalondock:LayoutDocumentPane>
                                 <avalondock:LayoutDocument Title="Stock">
                                     <Border>
-                                        <DataGrid x:Name="StockDataGrid"
+                                        <DataGrid x:Name="StockDataGrid" CellEditEnding="StockDataGrid_CellEditEnding"
                                                   AutoGenerateColumns="False"
                                                   CanUserAddRows="False"
                                                   CanUserDeleteRows="False">
