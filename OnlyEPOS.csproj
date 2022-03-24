@@ -11,11 +11,64 @@
     <None Remove="Images\DefaultImage.png" />
     <None Remove="Images\LargeLogo.png" />
     <None Remove="Images\ModernWallpaperMain.jpg" />
+    <None Remove="Images\NavGear\Address.png" />
+    <None Remove="Images\NavGear\Avatar.png" />
+    <None Remove="Images\NavGear\A_shout.png" />
+    <None Remove="Images\NavGear\Back.png" />
+    <None Remove="Images\NavGear\Back_2.png" />
+    <None Remove="Images\NavGear\Basket.png" />
+    <None Remove="Images\NavGear\Basket_2.png" />
+    <None Remove="Images\NavGear\Bell.png" />
+    <None Remove="Images\NavGear\Box.png" />
+    <None Remove="Images\NavGear\Camera.png" />
+    <None Remove="Images\NavGear\Clock.png" />
+    <None Remove="Images\NavGear\Close.png" />
+    <None Remove="Images\NavGear\Cloud.png" />
+    <None Remove="Images\NavGear\Comment.png" />
+    <None Remove="Images\NavGear\Compare.png" />
+    <None Remove="Images\NavGear\Cursor.png" />
+    <None Remove="Images\NavGear\Delivery.png" />
+    <None Remove="Images\NavGear\Dislike.png" />
+    <None Remove="Images\NavGear\Dollar.png" />
+    <None Remove="Images\NavGear\Download.png" />
+    <None Remove="Images\NavGear\Enable.png" />
+    <None Remove="Images\NavGear\Entry.png" />
+    <None Remove="Images\NavGear\e╠êalendar.png" />
+    <None Remove="Images\NavGear\Filter.png" />
+    <None Remove="Images\NavGear\Flag.png" />
+    <None Remove="Images\NavGear\Folder.png" />
+    <None Remove="Images\NavGear\Forward.png" />
+    <None Remove="Images\NavGear\Forward_2.png" />
+    <None Remove="Images\NavGear\Garbage.png" />
+    <None Remove="Images\NavGear\Heart.png" />
+    <None Remove="Images\NavGear\Like.png" />
+    <None Remove="Images\NavGear\lock.png" />
+    <None Remove="Images\NavGear\lock_2.png" />
+    <None Remove="Images\NavGear\Menu.png" />
+    <None Remove="Images\NavGear\Options.png" />
+    <None Remove="Images\NavGear\Page.png" />
+    <None Remove="Images\NavGear\Phone.png" />
+    <None Remove="Images\NavGear\Phone_2.png" />
+    <None Remove="Images\NavGear\Plus.png" />
+    <None Remove="Images\NavGear\Printer.png" />
+    <None Remove="Images\NavGear\Purse.png" />
+    <None Remove="Images\NavGear\Search.png" />
+    <None Remove="Images\NavGear\Settings.png" />
+    <None Remove="Images\NavGear\Sharing.png" />
+    <None Remove="Images\NavGear\The_envelope.png" />
+    <None Remove="Images\NavGear\Update.png" />
+    <None Remove="Images\NavGear\Ways_of_payment.png" />
+    <None Remove="Images\NavGear\Write.png" />
     <None Remove="Images\OrangeBG.png" />
     <None Remove="Images\wallpapersden.com_multicolor-abstract-background_1920x1080.jpg" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dirkster.AvalonDock" Version="4.70.1" />
+    <PackageReference Include="Dirkster.AvalonDock.Themes.Aero" Version="4.70.1" />
+    <PackageReference Include="Dirkster.AvalonDock.Themes.Expression" Version="4.70.1" />
+    <PackageReference Include="Dirkster.AvalonDock.Themes.Metro" Version="4.70.1" />
+    <PackageReference Include="Dirkster.AvalonDock.Themes.VS2013" Version="4.70.1" />
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
@@ -26,6 +79,54 @@
     <Resource Include="Images\DefaultImage.png" />
     <Resource Include="Images\LargeLogo.png" />
     <Resource Include="Images\ModernWallpaperMain.jpg" />
+    <Resource Include="Images\NavGear\Address.png" />
+    <Resource Include="Images\NavGear\Avatar.png" />
+    <Resource Include="Images\NavGear\A_shout.png" />
+    <Resource Include="Images\NavGear\Back.png" />
+    <Resource Include="Images\NavGear\Back_2.png" />
+    <Resource Include="Images\NavGear\Basket.png" />
+    <Resource Include="Images\NavGear\Basket_2.png" />
+    <Resource Include="Images\NavGear\Bell.png" />
+    <Resource Include="Images\NavGear\Box.png" />
+    <Resource Include="Images\NavGear\Camera.png" />
+    <Resource Include="Images\NavGear\Clock.png" />
+    <Resource Include="Images\NavGear\Close.png" />
+    <Resource Include="Images\NavGear\Cloud.png" />
+    <Resource Include="Images\NavGear\Comment.png" />
+    <Resource Include="Images\NavGear\Compare.png" />
+    <Resource Include="Images\NavGear\Cursor.png" />
+    <Resource Include="Images\NavGear\Delivery.png" />
+    <Resource Include="Images\NavGear\Dislike.png" />
+    <Resource Include="Images\NavGear\Dollar.png" />
+    <Resource Include="Images\NavGear\Download.png" />
+    <Resource Include="Images\NavGear\Enable.png" />
+    <Resource Include="Images\NavGear\Entry.png" />
+    <Resource Include="Images\NavGear\e╠êalendar.png" />
+    <Resource Include="Images\NavGear\Filter.png" />
+    <Resource Include="Images\NavGear\Flag.png" />
+    <Resource Include="Images\NavGear\Folder.png" />
+    <Resource Include="Images\NavGear\Forward.png" />
+    <Resource Include="Images\NavGear\Forward_2.png" />
+    <Resource Include="Images\NavGear\Garbage.png" />
+    <Resource Include="Images\NavGear\Heart.png" />
+    <Resource Include="Images\NavGear\Like.png" />
+    <Resource Include="Images\NavGear\lock.png" />
+    <Resource Include="Images\NavGear\lock_2.png" />
+    <Resource Include="Images\NavGear\Menu.png" />
+    <Resource Include="Images\NavGear\Options.png" />
+    <Resource Include="Images\NavGear\Page.png" />
+    <Resource Include="Images\NavGear\Phone.png" />
+    <Resource Include="Images\NavGear\Phone_2.png" />
+    <Resource Include="Images\NavGear\Plus.png" />
+    <Resource Include="Images\NavGear\Printer.png" />
+    <Resource Include="Images\NavGear\Purse.png" />
+    <Resource Include="Images\NavGear\Search.png" />
+    <Resource Include="Images\NavGear\Settings.png" />
+    <Resource Include="Images\NavGear\Sharing.png" />
+    <Resource Include="Images\NavGear\The_envelope.png" />
+    <Resource Include="Images\NavGear\Update.png" />
+    <Resource Include="Images\NavGear\Ways_of_payment.png" />
+    <Resource Include="Images\NavGear\Write.png" />
     <Resource Include="Images\OrangeBG.png" />
     <Resource Include="Images\wallpapersden.com_multicolor-abstract-background_1920x1080.jpg" />
   </ItemGroup>

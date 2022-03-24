@@ -15,7 +15,7 @@
 
         <Image Grid.ColumnSpan="12" Grid.RowSpan="12"
                Source="/Images/ModernWallpaperMain.jpg"
-               Opacity="0.3"/>
+               Opacity="0.8"/>
 
         <!-- Welcome Left Side Screen -->
         <Border Grid.ColumnSpan="2">
@@ -87,6 +87,68 @@
             <!-- MAIN GRID -->
             <Grid>
                 
+                <!-- Main Menu Buttons -->
+                <Button Grid.Column="1" Grid.Row="1" Height="180" Background="White" BorderBrush="#F97417" Margin="9" Click="MainButtonHandler">
+                    <StackPanel>
+                        <Image Source="/Images/NavGear/Options.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
+                        <TextBlock Height="10"/>
+                        <Label Content="Software Settings" FontSize="20" FontFamily="Ubuntu"/>
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="2" Grid.Row="1" Height="180" Background="White" BorderBrush="#F97417" Margin="9" x:Name="StockManagement" Click="MainButtonHandler">
+                    <StackPanel>
+                        <Image Source="/Images/NavGear/Box.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
+                        <TextBlock Height="10"/>
+                        <Label Content="Stock Management" FontSize="20" FontFamily="Ubuntu"/>
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="3" Grid.Row="1" Height="180" Background="White" BorderBrush="#F97417" Margin="9" Click="MainButtonHandler">
+                    <StackPanel>
+                        <Image Source="/Images/NavGear/Options.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
+                        <TextBlock Height="10"/>
+                        <Label Content="Software Settings" FontSize="20" FontFamily="Ubuntu"/>
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="4" Grid.Row="1" Height="180" Background="White" BorderBrush="#F97417" Margin="9" Click="MainButtonHandler">
+                    <StackPanel>
+                        <Image Source="/Images/NavGear/Options.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
+                        <TextBlock Height="10"/>
+                        <Label Content="Software Settings" FontSize="20" FontFamily="Ubuntu"/>
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="5" Grid.Row="1" Height="180" Background="White" BorderBrush="#F97417" Margin="9" Click="MainButtonHandler">
+                    <StackPanel>
+                        <Image Source="/Images/NavGear/Options.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
+                        <TextBlock Height="10"/>
+                        <Label Content="Software Settings" FontSize="20" FontFamily="Ubuntu"/>
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="6" Grid.Row="1" Height="180" Background="White" BorderBrush="#F97417" Margin="9" x:Name="SoftwareSettings" Click="MainButtonHandler">
+                    <StackPanel>
+                        <Image Source="/Images/NavGear/Options.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
+                        <TextBlock Height="10"/>
+                        <Label Content="Software Settings" FontSize="20" FontFamily="Ubuntu"/>
+                    </StackPanel>
+                </Button>
+
+                <!-- Defs -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
             </Grid>
         </Border>
 

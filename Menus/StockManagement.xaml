@@ -1,0 +1,107 @@
+﻿<Window x:Class="OnlyEPOS.Menus.StockManagement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OnlyEPOS.Menus" 
+        xmlns:avalondock="https://github.com/Dirkster99/AvalonDock" xmlns:avalondock1="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded"
+        Title="Manage Your Stock" Height="950" Width="1440">
+    <Grid>
+
+        <DockPanel x:Name="dockManager">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="Product">
+                    <MenuItem Header="Create New Product" />
+                    <MenuItem Header="Create One-Off Product" />
+                </MenuItem>
+                <MenuItem Header="Update">
+                    <MenuItem Header="Quick Commands" >
+                        <MenuItem Header="Products">
+                            <MenuItem Header="Generate Barcodes" />
+                            <MenuItem Header="Set Quantity To Zero" />
+                            <MenuItem Header="Set Selling Price By POR (Keypad Popup)" />
+                            <MenuItem Header="Set Negative Quantities To Zero" />
+                            <MenuItem Header="Remove Attatched Suppliers" />
+                            <MenuItem Header="Set All Tax Rate (Keypad Popup)" />
+                            <MenuItem Header="Delete Selected Products" />
+                        </MenuItem>
+                        <MenuItem Header="Store Sharing">
+                            <MenuItem Header="Force Quantity To Mirror" />
+                        </MenuItem>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Store Management">
+                    <MenuItem Header="Stock Check" />
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+
+        <avalondock:DockingManager Grid.Row="1">
+            <avalondock:DockingManager.Theme>
+                <MetroTheme/>
+            </avalondock:DockingManager.Theme>
+            <avalondock:LayoutRoot>
+                <avalondock:LayoutPanel >
+                    <avalondock:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="250" FloatingWidth="300">
+                        <avalondock:LayoutAnchorablePane>
+                            <avalondock:LayoutAnchorable Title="Product Information">
+                            </avalondock:LayoutAnchorable>
+                        </avalondock:LayoutAnchorablePane>
+                        <avalondock:LayoutAnchorablePane>
+                            <avalondock:LayoutAnchorable Title="Product Image">
+                            </avalondock:LayoutAnchorable>
+                        </avalondock:LayoutAnchorablePane>
+                    </avalondock:LayoutAnchorablePaneGroup>
+                    <avalondock:LayoutPanel Orientation="Vertical">
+                        <avalondock:LayoutDocumentPaneGroup Orientation="Horizontal">
+                            <avalondock:LayoutDocumentPane>
+                                <avalondock:LayoutDocument Title="Stock">
+                                    <Border>
+                                        <TreeView>
+                                            <TreeViewItem Header="Level 1" IsExpanded="True">
+                                                <TreeViewItem Header="Level 2.1" />
+                                                <TreeViewItem Header="Level 2.2" IsExpanded="True">
+                                                    <TreeViewItem Header="Level 3.1" />
+                                                    <TreeViewItem Header="Level 3.2" />
+                                                </TreeViewItem>
+                                                <TreeViewItem Header="Level 2.3" />
+                                            </TreeViewItem>
+                                        </TreeView>
+                                    </Border>
+                                </avalondock:LayoutDocument>
+                                <avalondock:LayoutDocument Title="Suppliers">
+                                    <TextBox>This is the stock manager main screen</TextBox>
+                                </avalondock:LayoutDocument>
+                                <avalondock:LayoutDocument Title="Barcodes">
+                                    <TextBox>This is the stock manager main screen</TextBox>
+                                </avalondock:LayoutDocument>
+                                <avalondock:LayoutDocument Title="Product History">
+                                    <TextBox>This is the stock manager main screen</TextBox>
+                                </avalondock:LayoutDocument>
+                                <avalondock:LayoutDocument Title="Website Integration">
+                                    <TextBox>This is the stock manager main screen</TextBox>
+                                </avalondock:LayoutDocument>
+                                <avalondock:LayoutDocument Title="Linked Stock">
+                                    <TextBox>This is the stock manager main screen</TextBox>
+                                </avalondock:LayoutDocument>
+                                <avalondock:LayoutDocument Title="Product Statistics">
+                                    <TextBox>This is the stock manager main screen</TextBox>
+                                </avalondock:LayoutDocument>
+                            </avalondock:LayoutDocumentPane>
+                        </avalondock:LayoutDocumentPaneGroup>
+                        <avalondock:LayoutAnchorablePaneGroup DockMinHeight="180" FloatingHeight="180"/>
+
+                    </avalondock:LayoutPanel>
+                </avalondock:LayoutPanel>
+            </avalondock:LayoutRoot>
+        </avalondock:DockingManager>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+    </Grid>
+</Window>

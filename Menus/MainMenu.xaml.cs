@@ -56,7 +56,6 @@ namespace OnlyEPOS.Menus
             // Route
             Button Sender = sender as Button;
 
-            // Check If Button Is Null
             switch (Sender.Name)
             {
                 // Sign User Out
@@ -64,6 +63,17 @@ namespace OnlyEPOS.Menus
                     Startup.InitialStartup IS = new();
                     IS.Show();
                     this.Close();
+                    break;
+
+                // -- Main Functionality -- //
+                case "SoftwareSettings":
+                    SoftwareSettings SS = new();
+                    SS.Show();
+                    break;
+                    
+                case "StockManagement":
+                    StockManagement SM = new();
+                    SM.Show();
                     break;
             }
         }

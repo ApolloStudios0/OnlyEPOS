@@ -225,7 +225,7 @@ namespace OnlyEPOS.Startup
 
                     // Proceed With Login
                     if (UserLogin != "NO_STAFF_MEMBER_WITH_ACCESS_CODE_FOUND" && UserLogin != "DEV-FLAG-GIVEN") { LogTest.Content = UserLogin; KeypadEntryBox.Text = ""; }
-                    else if (UserLogin == "DEV-FLAG-GIVEN") { Utility.Keyboard k = new(); k.ShowDialog(); KeypadEntryBox.Text = ""; }
+                    else if (UserLogin == "DEV-FLAG-GIVEN") { Menus.StockManagement sm = new(); sm.Show(); KeypadEntryBox.Text = ""; }
                     else { LogTest.Content = "Invalid Access Code"; }
                     break;
 
