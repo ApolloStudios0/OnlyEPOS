@@ -169,7 +169,7 @@
                 </avalondock:LayoutPanel>
             </avalondock:LayoutRoot>
         </avalondock:DockingManager>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition/>
