@@ -16,10 +16,35 @@ namespace OnlyEPOS.Menus
 {
     public partial class StockManagement : Window
     {
-        public StockManagement()
+        // Information About The Currently Selected Product
+        public static string ProductName { get; set; }
+        public static string ProductBarcode { get; set; }
+        public static string ProductUUID { get; set; }
+        #region [*] Edit & Update Information Above
+        private void UpdateStockInformation(object sender, SelectionChangedEventArgs e) 
         {
-            InitializeComponent();
+            try 
+            {
+                DataGrid grid = (DataGrid)sender;
+                DataRowView row_selected = grid.SelectedItem as DataRowView;
+
+                if (row_selected is not null)
+                {
+                    ProductUUID = row_selected["StockUUID"].ToString();
+                    ProductName = row_selected["Name of Item"].ToString();
+                    ProductBarcode = row_selected["Barcode"].ToString();
+                }
+            }
+            catch (Exception ex) { Settings.Logs.LogError(ex.Message); }
         }
+
+        private void DoubleClickToEditRows(object sender, MouseButtonEventArgs e)
+        {
+            // Update PKey & Details
+            DataGridCell cell = sender as DataGridCell;
+            if (cell is not null) { cell.IsEditing = true; }
+        }
+        #endregion
 
         /// <summary>
         /// Handle Stock Product Search
@@ -139,6 +164,11 @@ namespace OnlyEPOS.Menus
                 if (cmd.Connection.State == ConnectionState.Open) { cmd.Connection.Close(); }
                 cmd.Dispose();
             }
+        }
+
+        public StockManagement()
+        {
+            InitializeComponent();
         }
     }
 }

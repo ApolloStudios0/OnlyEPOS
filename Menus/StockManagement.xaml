@@ -58,7 +58,9 @@
                         </avalondock:LayoutAnchorablePane>
                         <avalondock:LayoutAnchorablePane>
                             <avalondock:LayoutAnchorable Title="Product Search">
-                                <Grid x:Name="ProductSearchGrid">
+
+                                <!-- Product Search -->
+                                <Grid x:Name="ProductSearchGrid" >
                                     <Button Background="White" BorderBrush="Orange" Content="Search" Foreground="Black" Height="27" x:Name="StockSearchButton" Click="StockSearchAdvisor"/>
                                     <TextBox Grid.Row="1" VerticalContentAlignment="Center" BorderBrush="Transparent" x:Name="Name_Of_Item">
                                         <materialDesign:HintAssist.Hint>
@@ -139,7 +141,15 @@
                                         <DataGrid x:Name="StockDataGrid" CellEditEnding="StockDataGrid_CellEditEnding"
                                                   AutoGenerateColumns="False"
                                                   CanUserAddRows="False"
-                                                  CanUserDeleteRows="False">
+                                                  CanUserDeleteRows="False"
+                                                  IsReadOnly="True"
+                                                  RowHeight="30"
+                                                  SelectionChanged="UpdateStockInformation">
+                                            <DataGrid.Resources>
+                                                <Style TargetType="{x:Type DataGridCell}">
+                                                    <EventSetter Event="MouseDoubleClick" Handler="DoubleClickToEditRows"/>
+                                                </Style>
+                                            </DataGrid.Resources>
                                         </DataGrid>
                                     </Border>
                                 </avalondock:LayoutDocument>

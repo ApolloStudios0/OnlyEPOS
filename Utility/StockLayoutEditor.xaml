@@ -34,6 +34,8 @@
                HorizontalAlignment="Center"/>
         <Label Content="Barcode" VerticalContentAlignment="Center" Grid.Row="12"
                HorizontalAlignment="Center"/>
+        <Label Content="Pack Size" VerticalContentAlignment="Center" Grid.Row="13"
+               HorizontalAlignment="Center"/>
 
         <CheckBox Grid.Column="1" x:Name="Name_Of_Item" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <CheckBox Grid.Column="1" x:Name="Quantity" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -48,10 +50,12 @@
         <CheckBox Grid.Column="1" x:Name="Type" Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <CheckBox Grid.Column="1" x:Name="Subtype" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <CheckBox Grid.Column="1" x:Name="Barcode" Grid.Row="12" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <CheckBox Grid.Column="1" x:Name="Pack_Size" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-        <Button Grid.Row="13" Grid.Column="1" Margin="0,5,0,0" Content="Save" Foreground="White" Click="SaveLayout"/>
+        <Button Grid.Row="33" Grid.Column="1" Margin="0,5,0,0" Content="Save" Foreground="White" Click="SaveLayout"/>
 
         <Grid.RowDefinitions>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
