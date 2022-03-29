@@ -16,26 +16,97 @@ namespace OnlyEPOS.Menus
 {
     public partial class StockManagement : Window
     {
-        // Information About The Currently Selected Product
+        #region [*] Edit Selected Product
+
+        // [*] Product Information
         public static string ProductName { get; set; }
+        public static string ProductQuantity { get; set; }
+        public static string ProductPackSize { get; set; }
         public static string ProductBarcode { get; set; }
+        public static string ProductCaseBarcode { get; set; }
+        public static string ProductWeight { get; set; }
+        public static string ProductSellingPrice { get; set; }
+        public static string ProductSupplierCost { get; set; }
+        public static string ProductSupplierCode { get; set; }
+        public static string ProductInternalReferenceCode { get; set; }
+        public static string ProductWarehouseLocation { get; set; }
+        public static string ProductMin { get; set; }
+        public static string ProductMax { get; set; }
+        public static string ProductType { get; set; }
+        public static string ProductSubtype { get; set; }
+        public static string ProductDiscontinued { get; set; }
+        public static string ProductAgeRestriction { get; set; }
         public static string ProductUUID { get; set; }
-        #region [*] Edit & Update Information Above
+
+        /// <summary>
+        /// Called When A Product Is Selected In The Stock Manager
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateStockInformation(object sender, SelectionChangedEventArgs e) 
         {
+            // Obtain Its Values
             try 
             {
                 DataGrid grid = (DataGrid)sender;
                 DataRowView row_selected = grid.SelectedItem as DataRowView;
-
                 if (row_selected is not null)
                 {
-                    ProductUUID = row_selected["StockUUID"].ToString();
+                    // [*] Set Values For Other Methods
                     ProductName = row_selected["Name of Item"].ToString();
+                    ProductQuantity = row_selected["Quantity"].ToString();
+                    ProductPackSize = row_selected["Pack Size"].ToString();
                     ProductBarcode = row_selected["Barcode"].ToString();
+                    ProductCaseBarcode = row_selected["Case Barcode"].ToString();
+                    ProductWeight = row_selected["Weight"].ToString();
+                    ProductSellingPrice = row_selected["Selling Price"].ToString();
+                    ProductSupplierCost = row_selected["Supplier Cost"].ToString();
+                    ProductSupplierCode = row_selected["Supplier Code"].ToString();
+                    ProductInternalReferenceCode = row_selected["Internal Reference Code"].ToString();
+                    ProductWarehouseLocation = row_selected["Warehouse Location"].ToString();
+                    ProductMin = row_selected["Min"].ToString();
+                    ProductMax = row_selected["Max"].ToString();
+                    ProductType = row_selected["Type"].ToString();
+                    ProductSubtype = row_selected["Subtype"].ToString();
+                    ProductDiscontinued = row_selected["Discontinued"].ToString();
+                    ProductAgeRestriction = row_selected["Age Restricted"].ToString();
+                    ProductUUID = row_selected["StockUUID"].ToString();
+
+                    // [*] Set Local Values
+                    foreach (TextBox ProductInfo in ProductInformationGrid.Children.OfType<TextBox>()) 
+                    {
+                        if (ProductInfo.Name is not null && ProductInfo.Name != "")
+                        {
+                            ProductInfo.Text = row_selected[ProductInfo.Name.Replace("9", "").Replace("_", " ")].ToString();
+                        }
+                    }
                 }
             }
-            catch (Exception ex) { Settings.Logs.LogError(ex.Message); }
+            catch (Exception ex) { Logs.LogError(ex.Message); }
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(
+                        "Name: " + ProductName + "\n" +
+                        "Quantity: " + ProductQuantity + "\n" +
+                        "Pack Size: " + ProductPackSize + "\n" +
+                        "Barcode: " + ProductBarcode + "\n" +
+                        "Case Barcode: " + ProductCaseBarcode + "\n" +
+                        "Weight: " + ProductWeight + "\n" +
+                        "Selling Price: " + ProductSellingPrice + "\n" +
+                        "Supplier Cost: " + ProductSupplierCost + "\n" +
+                        "Supplier Code: " + ProductSupplierCode + "\n" +
+                        "Internal Reference Code: " + ProductInternalReferenceCode + "\n" +
+                        "Warehouse Location: " + ProductWarehouseLocation + "\n" +
+                        "Min: " + ProductMin + "\n" +
+                        "Max: " + ProductMax + "\n" +
+                        "Type: " + ProductType + "\n" +
+                        "Subtype: " + ProductSubtype + "\n" +
+                        "Discontinued: " + ProductDiscontinued + "\n" +
+                        "Age Restricted: " + ProductAgeRestriction + "\n" +
+                        "StockUUID: " + ProductUUID + "\n"
+                        );
         }
 
         private void DoubleClickToEditRows(object sender, MouseButtonEventArgs e)
@@ -44,6 +115,8 @@ namespace OnlyEPOS.Menus
             DataGridCell cell = sender as DataGridCell;
             if (cell is not null) { cell.IsEditing = true; }
         }
+        private void EnterPressedSearchProducts(object sender, KeyEventArgs e) { if (e.Key == Key.Enter) { StockSearchAdvisor(StockSearchButton, null); } }
+        
         #endregion
 
         /// <summary>
@@ -59,30 +132,41 @@ namespace OnlyEPOS.Menus
             string BaseSearch = "Select * From Stock Where 1=1";
             Button Sender = sender as Button;
 
-            // Stop Parent Checking Itself
             foreach (TextBox Search in ProductSearchGrid.Children.OfType<TextBox>())
             {
-                if (Search.Text != "")
+                switch (Sender.Name)
                 {
-                    // Check Which Values Are Being Used
-                    BaseSearch += $" AND [{Search.Name.Replace("_", " ")}] LIKE '%{Search.Text}%'";
-                }
-                else
-                {
-                    // Obtain All Products (No Search Criteria Provided)
-                    StockData = await Utility.SQL.GetSQLData(BaseSearch, "OnlyEPOS");
-                    StockDataGrid.ItemsSource = StockData.DefaultView;
+                    // Search Stock Fields
+                    case "StockSearchButton":
+                        if (Search.Text != "")
+                        {
+                            // Check Which Values Are Being Used
+                            BaseSearch += $" AND [{Search.Name.Replace("_", " ")}] LIKE '%{Search.Text}%'";
+                        }
+                        else
+                        {
+                            // Obtain All Products (No Search Criteria Provided)
+                            StockData = await Utility.SQL.GetSQLData(BaseSearch, "OnlyEPOS");
+                            StockDataGrid.ItemsSource = StockData.DefaultView;
+                        }
+
+                        // Get Data From Database
+                        StockData = await Utility.SQL.GetSQLData(BaseSearch, "OnlyEPOS");
+
+                        // Set View
+                        StockDataGrid.ItemsSource = StockData.DefaultView;
+
+                        // Dynamically Check Column Data
+                        CheckDataColumns();
+                        break;
+
+                    // Clear Stock Fields
+                    case "ClearStockSearches":
+                        Search.Text = "";
+                        StockDataGrid.ItemsSource = null;
+                        break;
                 }
             }
-
-            // Get Data From Database
-            StockData = await Utility.SQL.GetSQLData(BaseSearch, "OnlyEPOS");
-
-            // Set View
-            StockDataGrid.ItemsSource = StockData.DefaultView;
-
-            // Dynamically Check Column Data
-            CheckDataColumns();
         }
         
         /// <summary>
@@ -170,5 +254,7 @@ namespace OnlyEPOS.Menus
         {
             InitializeComponent();
         }
+
+        
     }
 }

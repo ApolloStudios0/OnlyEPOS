@@ -13,9 +13,10 @@
         Title="MainMenu" Height="1080" Width="1920">
     <Grid>
 
-        <Image Grid.ColumnSpan="12" Grid.RowSpan="12"
-               Source="/Images/ModernWallpaperMain.jpg"
-               Opacity="0.8"/>
+        <Image Grid.ColumnSpan="12" Grid.RowSpan="12" Margin="-300"
+               Source="/Images/dark-bg.jpg"
+               Opacity="0.8">
+        </Image>
 
         <!-- Welcome Left Side Screen -->
         <Border Grid.ColumnSpan="2">
@@ -25,17 +26,17 @@
                 <Ellipse x:Name="ProfilePictureBorder" Width="130" Height="130" Fill="Red" Grid.RowSpan="3" />
                 <Ellipse x:Name="ProfilePicture" Width="120" Height="120" Grid.RowSpan="3">
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="/Images/DefaultImage.png"/>
+                        <ImageBrush ImageSource="/Images/DefaultImage.png" />
                     </Ellipse.Fill>
                 </Ellipse>
                 
                 <!-- Staff Welcome -->
                 <Label Content="Hello, James D." x:Name="Welcome_StaffName"
-                       Grid.Column="1" VerticalAlignment="Center"
+                       Grid.Column="1" VerticalAlignment="Center" Foreground="White"
                        Grid.RowSpan="2" FontSize="26"
                        FontFamily="Ubuntu" FontWeight="Bold"/>
                 <Label Content="Select An Option Get Started"
-                       Grid.Column="1" VerticalAlignment="Center"
+                       Grid.Column="1" VerticalAlignment="Center" Foreground="White"
                        Grid.RowSpan="2" Grid.Row="1" FontSize="12"
                        FontFamily="Ubuntu" FontWeight="Bold" Opacity="0.7"/>
 
@@ -45,14 +46,14 @@
                                 Background="White"
                                 Foreground="Black"
                                 FontFamily="Ubuntu"
-                                BorderBrush="Firebrick" BorderThickness="1"
+                                BorderBrush="White" BorderThickness="1"
                                 x:Name="SignOutButton" Margin="5,-6,0,0" Click="MainButtonHandler"/>
                 <Button Grid.Row="2" Grid.Column="1"
                                 Content="Print Last Receipt"
                                 Background="White"
                                 Foreground="Black"
                                 FontFamily="Ubuntu"
-                                BorderBrush="#F97417" BorderThickness="1"
+                                BorderBrush="White" BorderThickness="1"
                                 x:Name="PrintLastReceiptButton" Margin="5,-6,0,0"/>
 
                 <Grid.ColumnDefinitions>
@@ -69,13 +70,12 @@
         
         <!-- Recent Sales List Items -->
         <Border Grid.Row="1" Grid.ColumnSpan="2"
-                Grid.RowSpan="12" Margin="6,10,0,0"
-                BorderBrush="#F97417" BorderThickness="2">
+                Grid.RowSpan="12" Margin="6,10,0,10"
+                BorderBrush="White" BorderThickness="0.2">
             <Grid>
                 
                 <!-- List Of Sales -->
-                <Rectangle Fill="White" />
-                <ListView Background="White"/>
+                <ListView Background="Transparent"/>
                 
                 
             </Grid>
@@ -88,42 +88,42 @@
             <Grid>
                 
                 <!-- Main Menu Buttons -->
-                <Button Grid.Column="1" Grid.Row="1" Height="180" Background="White" BorderBrush="#F97417" Margin="9" Click="MainButtonHandler">
+                <Button Grid.Column="1" Grid.Row="1" Height="180" BorderThickness="2" Background="White" BorderBrush="#F97417" Margin="9" Click="MainButtonHandler">
                     <StackPanel>
-                        <Image Source="/Images/NavGear/Options.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
+                        <Image Source="/Images/NavGear/Options.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Opacity="0"/>
                         <TextBlock Height="10"/>
                         <Label Content="Software Settings" FontSize="20" FontFamily="Ubuntu"/>
                     </StackPanel>
                 </Button>
-                <Button Grid.Column="2" Grid.Row="1" Height="180" Background="White" BorderBrush="#F97417" Margin="9" x:Name="StockManagement" Click="MainButtonHandler">
+                <Button Grid.Column="2" Grid.Row="1" Height="180" BorderThickness="2" Background="White" BorderBrush="#F97417" Margin="9" x:Name="StockManagement" Click="MainButtonHandler">
                     <StackPanel>
                         <Image Source="/Images/NavGear/Box.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
                         <TextBlock Height="10"/>
                         <Label Content="Stock Management" FontSize="20" FontFamily="Ubuntu"/>
                     </StackPanel>
                 </Button>
-                <Button Grid.Column="3" Grid.Row="1" Height="180" Background="White" BorderBrush="#F97417" Margin="9" Click="MainButtonHandler">
+                <Button Grid.Column="3" Grid.Row="1" Height="180" BorderThickness="2" Background="White" BorderBrush="#F97417" Margin="9" Click="MainButtonHandler">
                     <StackPanel>
-                        <Image Source="/Images/NavGear/Options.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
+                        <Image Source="/Images/NavGear/Options.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Opacity="0"/>
                         <TextBlock Height="10"/>
                         <Label Content="Software Settings" FontSize="20" FontFamily="Ubuntu"/>
                     </StackPanel>
                 </Button>
-                <Button Grid.Column="4" Grid.Row="1" Height="180" Background="White" BorderBrush="#F97417" Margin="9" Click="MainButtonHandler">
+                <Button Grid.Column="4" Grid.Row="1" Height="180" BorderThickness="2" Background="White" BorderBrush="#F97417" Margin="9" Click="MainButtonHandler">
                     <StackPanel>
-                        <Image Source="/Images/NavGear/Options.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
+                        <Image Source="/Images/NavGear/Options.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Opacity="0"/>
                         <TextBlock Height="10"/>
                         <Label Content="Software Settings" FontSize="20" FontFamily="Ubuntu"/>
                     </StackPanel>
                 </Button>
-                <Button Grid.Column="5" Grid.Row="1" Height="180" Background="White" BorderBrush="#F97417" Margin="9" Click="MainButtonHandler">
+                <Button Grid.Column="5" Grid.Row="1" BorderThickness="2" Height="180" Background="White" BorderBrush="#F97417" Margin="9" Click="MainButtonHandler">
                     <StackPanel>
-                        <Image Source="/Images/NavGear/Options.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
+                        <Image Source="/Images/NavGear/Options.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Opacity="0"/>
                         <TextBlock Height="10"/>
                         <Label Content="Software Settings" FontSize="20" FontFamily="Ubuntu"/>
                     </StackPanel>
                 </Button>
-                <Button Grid.Column="6" Grid.Row="1" Height="180" Background="White" BorderBrush="#F97417" Margin="9" x:Name="SoftwareSettings" Click="MainButtonHandler">
+                <Button Grid.Column="6" Grid.Row="1" Height="180" BorderThickness="2" Background="White" BorderBrush="#F97417" Margin="9" x:Name="SoftwareSettings" Click="MainButtonHandler">
                     <StackPanel>
                         <Image Source="/Images/NavGear/Options.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
                         <TextBlock Height="10"/>
