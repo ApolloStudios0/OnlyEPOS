@@ -58,55 +58,55 @@
                                     <Grid x:Name="ProductInformationGrid" Margin="0,5,0,0">
                                         
                                         <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Text="Name of Item" Opacity="0.6" IsHitTestVisible="False" VerticalContentAlignment="Center"/>
-                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" x:Name="Name_of_Item9"/>
+                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" x:Name="Name_of_Item9" KeyDown="ChangeProductInformation"/>
 
                                         <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Text="Selling Price" Opacity="0.6" IsHitTestVisible="False" Grid.Row="1" VerticalContentAlignment="Center"/>
-                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="1" x:Name="Selling_Price9"/>
+                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="1" x:Name="Selling_Price9" KeyDown="ChangeProductInformation"/>
 
                                         <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Text="Supplier Cost" Opacity="0.6" IsHitTestVisible="False" Grid.Row="2" VerticalContentAlignment="Center"/>
-                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="2" x:Name="Supplier_Cost9"/>
+                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="2" x:Name="Supplier_Cost9" KeyDown="ChangeProductInformation"/>
 
                                         <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Text="Supplier Code" Opacity="0.6" IsHitTestVisible="False" Grid.Row="3" VerticalContentAlignment="Center"/>
-                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="3" x:Name="Supplier_Code9"/>
+                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="3" x:Name="Supplier_Code9" KeyDown="ChangeProductInformation"/>
 
                                         <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Text="Quantity" Opacity="0.6" IsHitTestVisible="False" Grid.Row="4" VerticalContentAlignment="Center"/>
-                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="4" x:Name="Quantity9"/>
+                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="4" x:Name="Quantity9" KeyDown="ChangeProductInformation"/>
 
                                         <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Text="Barcode" Opacity="0.6" IsHitTestVisible="False" Grid.Row="5" VerticalContentAlignment="Center"/>
-                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="5" x:Name="Barcode9"/>
+                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="5" x:Name="Barcode9" KeyDown="ChangeProductInformation"/>
 
                                         <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Text="Case Barcode" Opacity="0.6" IsHitTestVisible="False" Grid.Row="6" VerticalContentAlignment="Center"/>
-                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="6" x:Name="Case_Barcode9"/>
+                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="6" x:Name="Case_Barcode9" KeyDown="ChangeProductInformation"/>
 
                                         <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Text="Internal Ref" Opacity="0.6" IsHitTestVisible="False" Grid.Row="7" VerticalContentAlignment="Center"/>
-                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="7" x:Name="Internal_Reference_Code9"/>
+                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="7" x:Name="Internal_Reference_Code9" KeyDown="ChangeProductInformation"/>
 
                                         <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Text="Min" Opacity="0.6" IsHitTestVisible="False" Grid.Row="8" VerticalContentAlignment="Center"/>
-                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="8" x:Name="Min9"/>
+                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="8" x:Name="Min9" KeyDown="ChangeProductInformation"/>
 
                                         <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Text="Max" Opacity="0.6" IsHitTestVisible="False" Grid.Row="9" VerticalContentAlignment="Center"/>
-                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="9" x:Name="Max9"/>
+                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="9" x:Name="Max9" KeyDown="ChangeProductInformation"/>
 
                                         <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Text="Type" Opacity="0.6" IsHitTestVisible="False" Grid.Row="10" VerticalContentAlignment="Center"/>
-                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="10" x:Name="Type9"/>
+                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="10" x:Name="Type9" KeyDown="ChangeProductInformation"/>
 
                                         <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Text="Subtype" Opacity="0.6" IsHitTestVisible="False" Grid.Row="11" VerticalContentAlignment="Center"/>
-                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="11" x:Name="Subtype9"/>
+                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="11" x:Name="Subtype9" KeyDown="ChangeProductInformation"/>
 
                                         <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Text="Pack Size" Opacity="0.6" IsHitTestVisible="False" Grid.Row="12" VerticalContentAlignment="Center"/>
-                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="12" x:Name="Pack_Size9"/>
+                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="12" x:Name="Pack_Size9" KeyDown="ChangeProductInformation"/>
 
                                         <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Text="Discontinued" Opacity="0.6" IsHitTestVisible="False" Grid.Row="13" VerticalContentAlignment="Center"/>
-                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="13" x:Name="Discontinued9"/>
+                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="13" x:Name="Discontinued9" KeyDown="ChangeProductInformation"/>
 
                                         <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Text="Reduce Stock" Opacity="0.6" IsHitTestVisible="False" Grid.Row="14" VerticalContentAlignment="Center"/>
-                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="14" x:Name="Reduce_Stock9"/>
+                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="14" x:Name="Reduce_Stock9" KeyDown="ChangeProductInformation"/>
 
                                         <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Text="Points" Opacity="0.6" IsHitTestVisible="False" Grid.Row="15" VerticalContentAlignment="Center"/>
-                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="15" x:Name="Points9"/>
+                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="15" x:Name="Points9" KeyDown="ChangeProductInformation"/>
 
                                         <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Text="Age Restrict" Opacity="0.6" IsHitTestVisible="False" Grid.Row="16" VerticalContentAlignment="Center"/>
-                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="16" x:Name="Age_Restricted9"/>
+                                        <TextBox Background="GhostWhite" BorderBrush="Black" BorderThickness="0.4" Grid.Column="1" Grid.Row="16" x:Name="Age_Restricted9" KeyDown="ChangeProductInformation"/>
 
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="100"/>

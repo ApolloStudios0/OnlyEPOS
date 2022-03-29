@@ -77,6 +77,7 @@ namespace OnlyEPOS.Menus
                     {
                         if (ProductInfo.Name is not null && ProductInfo.Name != "")
                         {
+                            // Values are replace to stop XAML name collisions
                             ProductInfo.Text = row_selected[ProductInfo.Name.Replace("9", "").Replace("_", " ")].ToString();
                         }
                     }
@@ -108,7 +109,6 @@ namespace OnlyEPOS.Menus
                         "StockUUID: " + ProductUUID + "\n"
                         );
         }
-
         private void DoubleClickToEditRows(object sender, MouseButtonEventArgs e)
         {
             // Update PKey & Details
@@ -250,11 +250,49 @@ namespace OnlyEPOS.Menus
             }
         }
 
+        /// <summary>
+        /// Dynmically Change Product Information On Left Side-Stock Manager When Pressing Enter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChangeProductInformation(object sender, KeyEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            if (e.Key == Key.Return)
+            {
+                // Values are replaced to stop XAML name collisions 
+                SqlCommand cmd = new($"UPDATE Stock SET [{tb.Name.Replace("9", "").Replace("_", " ")}] = @StockValue WHERE StockUUID = @StockUUID", new SqlConnection(SQL.ConnectionString))
+                {
+                    Parameters =
+                    {
+                        new SqlParameter("@StockValue", tb.Text),
+                        new SqlParameter("@StockUUID", ProductUUID), // Product UUID changed on row click
+                    }
+                };
+
+                // Execute With Try
+                try
+                {
+                    if (cmd.Connection.State == ConnectionState.Closed) { cmd.Connection.Open(); }
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Logs.LogError(ex.Message);
+                }
+                finally
+                {
+                    if (cmd.Connection.State == ConnectionState.Open) { cmd.Connection.Close(); }
+                    cmd.Dispose();
+                    StockSearchButton.Focus();
+                    StockSearchAdvisor(StockSearchButton, null);
+                }
+            }
+        }
+
         public StockManagement()
         {
             InitializeComponent();
         }
-
-        
     }
 }
