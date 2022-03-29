@@ -143,12 +143,6 @@ namespace OnlyEPOS.Menus
                             // Check Which Values Are Being Used
                             BaseSearch += $" AND [{Search.Name.Replace("_", " ")}] LIKE '%{Search.Text}%'";
                         }
-                        else
-                        {
-                            // Obtain All Products (No Search Criteria Provided)
-                            StockData = await Utility.SQL.GetSQLData(BaseSearch, "OnlyEPOS");
-                            StockDataGrid.ItemsSource = StockData.DefaultView;
-                        }
 
                         // Get Data From Database
                         StockData = await Utility.SQL.GetSQLData(BaseSearch, "OnlyEPOS");
@@ -160,10 +154,17 @@ namespace OnlyEPOS.Menus
                         CheckDataColumns();
                         break;
 
-                    // Clear Stock Fields
+                    // Clear All Fields
                     case "ClearStockSearches":
-                        Search.Text = "";
                         StockDataGrid.ItemsSource = null;
+                        Search.Text = "";
+                        foreach (var row in ProductInformationGrid.Children.OfType<TextBox>())
+                        {
+                            if (row.Name is not null && row.Name != "")
+                            {
+                                row.Text = "";
+                            }
+                        }
                         break;
                 }
             }
