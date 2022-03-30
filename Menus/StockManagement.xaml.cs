@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.IO;
 
+// Known Stock Bugs
+// - When editing the same cell multiple times, the 'WasValue' is not updated
+
 namespace OnlyEPOS.Menus
 {
     public partial class StockManagement : Window
@@ -92,12 +95,27 @@ namespace OnlyEPOS.Menus
                         await Task.Run(async () =>
                         {
                             // [*] Get Product History
-                            DataForControls = await Utility.SQL.GetSQLData("SELECT [Product Name], [Field Changed] as 'What Changed', [Was], [Now], [Changed By] as 'Changed By', [DateChanged] as 'Date' FROM ProductHistory WHERE StockUUID = '" + ProductUUID + "'", "OnlyEPOS ");
+                            DataForControls = await Utility.SQL.GetSQLData("SELECT [Product Name], [Field Changed] as 'What Changed', [Was], [Now], [Changed By] as 'Changed By', [DateChanged] as 'Date' FROM ProductHistory WHERE StockUUID = '" + ProductUUID + "' Order By DateChanged Desc", "OnlyEPOS ");
 
                             // [*] Set Product History
                             ProductHistoryGrid.Dispatcher.Invoke(() =>
                             {
                                 ProductHistoryGrid.ItemsSource = DataForControls.DefaultView;
+                            });
+                        });
+                    }
+                    if (BarcodeDataGrid.IsVisible)
+                    {
+                        // [*] Fill Barcode Data
+                        await Task.Run(async () =>
+                        {
+                            // [*] Get Product History
+                            DataForControls = await Utility.SQL.GetSQLData($"Select [Barcode] as 'Product Barcodes' From ProductBarcodes where StockUUID = '{ProductUUID}'", "OnlyEPOS");
+
+                            // [*] Set Product History
+                            BarcodeDataGrid.Dispatcher.Invoke(() =>
+                            {
+                                BarcodeDataGrid.ItemsSource = DataForControls.DefaultView;
                             });
                         });
                     }
@@ -259,19 +277,23 @@ namespace OnlyEPOS.Menus
             // Get StockUUID From Current Row
             string StockUUID = CurrentRow["StockUUID"].ToString();
 
-            // Send Parameterized Query
-            SqlCommand ProductUpdate = new($"UPDATE Stock SET [{CurrentColumn}] = @StockValue WHERE StockUUID = @StockUUID", new SqlConnection(SQL.ConnectionString))
+            // Make Sure Value Is Actually Different
+            if (WasValue != CellValue)
             {
-                Parameters =
+
+                // Send Parameterized Query
+                SqlCommand ProductUpdate = new($"UPDATE Stock SET [{CurrentColumn}] = @StockValue WHERE StockUUID = @StockUUID", new SqlConnection(SQL.ConnectionString))
+                {
+                    Parameters =
                     {
                         new SqlParameter("@StockValue", CellValue),
                         new SqlParameter("@StockUUID", StockUUID),
                     }
-            };
+                };
 
-            SqlCommand ProductHistory = new($"Insert Into .[dbo].[ProductHistory] VALUES (@ProductName, @FieldChanged, @Was, @Now, @ChangedBy, @StockUUID, GetDate())", new SqlConnection(SQL.ConnectionString))
-            {
-                Parameters =
+                SqlCommand ProductHistory = new($"Insert Into .[dbo].[ProductHistory] VALUES (@ProductName, @FieldChanged, @Was, @Now, @ChangedBy, @StockUUID, GetDate())", new SqlConnection(SQL.ConnectionString))
+                {
+                    Parameters =
                     {
                         new SqlParameter("@ProductName", ProductName),
                         new SqlParameter("@FieldChanged", CurrentColumn),
@@ -280,26 +302,27 @@ namespace OnlyEPOS.Menus
                         new SqlParameter("@ChangedBy", Utility.CurrentStaffInformation.StaffMemberName),
                         new SqlParameter("@StockUUID", StockUUID),
                     }
-            };
+                };
 
-            // Execute With Try
-            try
-            {
-                if (ProductUpdate.Connection.State == ConnectionState.Closed) { ProductUpdate.Connection.Open(); }
-                if (ProductHistory.Connection.State == ConnectionState.Closed) { ProductHistory.Connection.Open(); }
-                ProductUpdate.ExecuteNonQuery();
-                ProductHistory.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                Logs.LogError(ex.Message);
-            }
-            finally
-            {
-                if (ProductUpdate.Connection.State == ConnectionState.Open) { ProductUpdate.Connection.Close(); }
-                if (ProductHistory.Connection.State == ConnectionState.Open) { ProductHistory.Connection.Close(); }
-                ProductUpdate.Dispose();
-                ProductHistory.Dispose();
+                // Execute With Try
+                try
+                {
+                    if (ProductUpdate.Connection.State == ConnectionState.Closed) { ProductUpdate.Connection.Open(); }
+                    if (ProductHistory.Connection.State == ConnectionState.Closed) { ProductHistory.Connection.Open(); }
+                    ProductUpdate.ExecuteNonQuery();
+                    ProductHistory.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Logs.LogError(ex.Message);
+                }
+                finally
+                {
+                    if (ProductUpdate.Connection.State == ConnectionState.Open) { ProductUpdate.Connection.Close(); }
+                    if (ProductHistory.Connection.State == ConnectionState.Open) { ProductHistory.Connection.Close(); }
+                    ProductUpdate.Dispose();
+                    ProductHistory.Dispose();
+                }
             }
         }
 
@@ -346,6 +369,68 @@ namespace OnlyEPOS.Menus
         public StockManagement()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Dynmically Handles All Button Clicks
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GlobalButtonAdvisor(object sender, RoutedEventArgs e)
+        {
+            Button Sender = sender as Button;
+            
+            // Direct
+            switch (Sender.Name)
+            {
+                // -- Add Barcode
+                case "AddBarcode":
+                    AddBarcode();
+                    break;
+
+                // -- Remove Barcode
+                case "RemoveBarcode":
+                    RemoveBarcode();
+                    break;
+            }
+            
+            void AddBarcode()
+            {
+                // Show keyboard
+                Utility.Keyboard KB = new();
+                KB.ShowDialog();
+                
+                if (KB.DialogResult == true)
+                {
+                    SqlCommand AddBarcode = new($"Insert Into ProductBarcodes VALUES (@StockUUID, @Barcode)", new SqlConnection(SQL.ConnectionString))
+                    {
+                        Parameters =
+                    {
+                        new SqlParameter("@StockUUID", ProductUUID),
+                        new SqlParameter("@Barcode", KB.UserInputBox.Text),
+                    }
+                    };
+                    try
+                    {
+                        if (AddBarcode.Connection.State == ConnectionState.Closed) { AddBarcode.Connection.Open(); }
+                        AddBarcode.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logs.LogError(ex.Message);
+                    }
+                    finally
+                    {
+                        if (AddBarcode.Connection.State == ConnectionState.Open) { AddBarcode.Connection.Close(); }
+                        AddBarcode.Dispose();
+                    }
+                }
+            }
+            
+            void RemoveBarcode()
+            {
+                
+            }
         }
     }
 }

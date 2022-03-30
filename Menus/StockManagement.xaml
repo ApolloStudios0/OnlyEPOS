@@ -239,7 +239,36 @@
                                     <TextBox>This is the stock manager main screen</TextBox>
                                 </avalondock:LayoutDocument>
                                 <avalondock:LayoutDocument Title="Barcodes">
-                                    <TextBox>This is the stock manager main screen</TextBox>
+                                    <Border>
+                                        <Grid>
+
+                                            <StackPanel Grid.Column="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                                <TextBlock Width="10"/>
+                                                <Button Width="180" Content="Remove Barcode -" Foreground="White" FontWeight="Bold" Margin="0,0,0,0" x:Name="RemoveBarcode" Click="GlobalButtonAdvisor"/>
+                                                <TextBlock Width="10"/>
+                                                <Button Width="180" Content="Add Barcode +" Foreground="White" FontWeight="Bold" x:Name="AddBarcode" Click="GlobalButtonAdvisor"/>
+                                            </StackPanel>
+
+                                            <DataGrid x:Name="BarcodeDataGrid"
+                                                  AutoGenerateColumns="True"
+                                                  CanUserAddRows="False"
+                                                  CanUserDeleteRows="False"
+                                                  IsReadOnly="True"
+                                                  GridLinesVisibility="Horizontal"
+                                                  RowHeight="33"
+                                                  Grid.Row="1"
+                                                  Grid.ColumnSpan="12">
+                                            </DataGrid>
+                                            
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="40"/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                        </Grid>
+                                    </Border>
                                 </avalondock:LayoutDocument>
                                 <avalondock:LayoutDocument Title="Product History" x:Name="ProductHistory">
                                     <DataGrid x:Name="ProductHistoryGrid"
