@@ -1,19 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.IO;
 
-// Known Stock Bugs
+// Known Bugs
 // - When editing the same cell multiple times, the 'WasValue' is not updated
+// - Setting primary supplier they all turn to primary
+
+// Left Todo:
+// - Website Integrations Tab
+// - Linked Stock Tab
+// - Stock Checking Functionality
+// - Proper Layout Functionality
+// - Add New Product [Figure Out All Rows First]
+// - Add New One-Off Product
+// - Quick Commands
+//     - Generate Barcodes
+//     - Set Quantity To Zero
+//     - Set Selling Price By POR
+//     - Set Negative Quantities To Zero
+//     - Remove Attached Suppliers
+//     - Set All Tax Rate (Keypad Popup)
+//     - Delete Selected Products
+// - Store Sharing
+//     - Force Quantity To Mirror
+
 
 namespace OnlyEPOS.Menus
 {

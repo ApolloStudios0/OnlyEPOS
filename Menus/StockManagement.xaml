@@ -222,6 +222,7 @@
                                                   CellEditEnding="StockDataGrid_CellEditEnding"
                                                   AutoGenerateColumns="False"
                                                   CanUserAddRows="False"
+                                                  AlternatingRowBackground="GhostWhite"
                                                   CanUserDeleteRows="False"
                                                   IsReadOnly="True"
                                                   RowHeight="30"
