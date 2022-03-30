@@ -53,7 +53,7 @@
                 <avalondock:LayoutPanel >
                     <avalondock:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="280" FloatingWidth="300">
                         <avalondock:LayoutAnchorablePane>
-                            <avalondock:LayoutAnchorable Title="Product Information">
+                            <avalondock:LayoutAnchorable Title="Product Information (Press Enter To Save)">
                                 <Border x:Name="ProductInformationBorder">
                                     <Grid x:Name="ProductInformationGrid" Margin="0,5,0,0">
                                         
@@ -218,12 +218,14 @@
                             <avalondock:LayoutDocumentPane>
                                 <avalondock:LayoutDocument Title="Stock">
                                     <Border>
-                                        <DataGrid x:Name="StockDataGrid" CellEditEnding="StockDataGrid_CellEditEnding"
+                                        <DataGrid x:Name="StockDataGrid" 
+                                                  CellEditEnding="StockDataGrid_CellEditEnding"
                                                   AutoGenerateColumns="False"
                                                   CanUserAddRows="False"
                                                   CanUserDeleteRows="False"
                                                   IsReadOnly="True"
                                                   RowHeight="30"
+                                                  GridLinesVisibility="All"
                                                   SelectionChanged="UpdateStockInformation">
                                             <DataGrid.Resources>
                                                 <Style TargetType="{x:Type DataGridCell}">
@@ -239,8 +241,15 @@
                                 <avalondock:LayoutDocument Title="Barcodes">
                                     <TextBox>This is the stock manager main screen</TextBox>
                                 </avalondock:LayoutDocument>
-                                <avalondock:LayoutDocument Title="Product History">
-                                    <TextBox>This is the stock manager main screen</TextBox>
+                                <avalondock:LayoutDocument Title="Product History" x:Name="ProductHistory">
+                                    <DataGrid x:Name="ProductHistoryGrid"
+                                                  AutoGenerateColumns="True"
+                                                  CanUserAddRows="False"
+                                                  CanUserDeleteRows="False"
+                                                  IsReadOnly="True"
+                                                  GridLinesVisibility="All"
+                                                  RowHeight="33">
+                                    </DataGrid>
                                 </avalondock:LayoutDocument>
                                 <avalondock:LayoutDocument Title="Website Integration">
                                     <TextBox>This is the stock manager main screen</TextBox>

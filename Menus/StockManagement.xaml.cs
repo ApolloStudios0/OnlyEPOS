@@ -43,7 +43,8 @@ namespace OnlyEPOS.Menus
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void UpdateStockInformation(object sender, SelectionChangedEventArgs e) 
+        DataTable DataForControls = new();
+        private async void UpdateStockInformation(object sender, SelectionChangedEventArgs e) 
         {
             // Obtain Its Values
             try 
@@ -73,6 +74,7 @@ namespace OnlyEPOS.Menus
                     ProductUUID = row_selected["StockUUID"].ToString();
 
                     // [*] Set Local Values
+                    #region [1] Change Product Information
                     foreach (TextBox ProductInfo in ProductInformationGrid.Children.OfType<TextBox>()) 
                     {
                         if (ProductInfo.Name is not null && ProductInfo.Name != "")
@@ -80,6 +82,24 @@ namespace OnlyEPOS.Menus
                             // Values are replace to stop XAML name collisions
                             ProductInfo.Text = row_selected[ProductInfo.Name.Replace("9", "").Replace("_", " ")].ToString();
                         }
+                    }
+                    #endregion
+                    
+                    // [*] Check Active Controls (If A Tab Is Docked / Floating) & Fill Its Data If It Is
+                    if (ProductHistory.IsVisible) 
+                    {
+                        // [*] Fill Product History
+                        await Task.Run(async () =>
+                        {
+                            // [*] Get Product History
+                            DataForControls = await Utility.SQL.GetSQLData("SELECT [Product Name], [Field Changed] as 'What Changed', [Was], [Now], [Changed By] as 'Changed By', [DateChanged] as 'Date' FROM ProductHistory WHERE StockUUID = '" + ProductUUID + "'", "OnlyEPOS ");
+
+                            // [*] Set Product History
+                            ProductHistoryGrid.Dispatcher.Invoke(() =>
+                            {
+                                ProductHistoryGrid.ItemsSource = DataForControls.DefaultView;
+                            });
+                        });
                     }
                 }
             }
@@ -113,8 +133,22 @@ namespace OnlyEPOS.Menus
         {
             // Update PKey & Details
             DataGridCell cell = sender as DataGridCell;
-            if (cell is not null) { cell.IsEditing = true; }
+            if (cell is not null) 
+            { 
+                cell.IsEditing = true;
+
+                // get column name
+                try
+                {
+                    string columnName = cell.Column.Header.ToString();
+                    DataRowView row = (DataRowView)cell.DataContext;
+                    string value = row[columnName].ToString();
+                    WasValue = value;
+                }
+                catch (Exception ex) { Logs.LogError("Failed To Obtain Row Value From Stock Manager: " + ex.Message); }
+            }
         }
+        
         private void EnterPressedSearchProducts(object sender, KeyEventArgs e) { if (e.Key == Key.Enter) { StockSearchAdvisor(StockSearchButton, null); } }
         
         #endregion
@@ -206,10 +240,11 @@ namespace OnlyEPOS.Menus
         }
 
         /// <summary>
-        /// Dynmically Edit & Save DataGrid Edits To The Stock Table
+        /// Dynmically Edit & Save DataGrid Edits To The Stock Table (Also Controls StockProductHistory Updates)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        public static string WasValue { get; set; }
         private void StockDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             // Get Current Row
@@ -225,7 +260,7 @@ namespace OnlyEPOS.Menus
             string StockUUID = CurrentRow["StockUUID"].ToString();
 
             // Send Parameterized Query
-            SqlCommand cmd = new($"UPDATE Stock SET [{CurrentColumn}] = @StockValue WHERE StockUUID = @StockUUID", new SqlConnection(SQL.ConnectionString))
+            SqlCommand ProductUpdate = new($"UPDATE Stock SET [{CurrentColumn}] = @StockValue WHERE StockUUID = @StockUUID", new SqlConnection(SQL.ConnectionString))
             {
                 Parameters =
                     {
@@ -233,12 +268,27 @@ namespace OnlyEPOS.Menus
                         new SqlParameter("@StockUUID", StockUUID),
                     }
             };
-            
+
+            SqlCommand ProductHistory = new($"Insert Into .[dbo].[ProductHistory] VALUES (@ProductName, @FieldChanged, @Was, @Now, @ChangedBy, @StockUUID, GetDate())", new SqlConnection(SQL.ConnectionString))
+            {
+                Parameters =
+                    {
+                        new SqlParameter("@ProductName", ProductName),
+                        new SqlParameter("@FieldChanged", CurrentColumn),
+                        new SqlParameter("@Was", WasValue),
+                        new SqlParameter("@Now", CellValue),
+                        new SqlParameter("@ChangedBy", Utility.CurrentStaffInformation.StaffMemberName),
+                        new SqlParameter("@StockUUID", StockUUID),
+                    }
+            };
+
             // Execute With Try
             try
             {
-                if (cmd.Connection.State == ConnectionState.Closed) { cmd.Connection.Open(); }
-                cmd.ExecuteNonQuery();
+                if (ProductUpdate.Connection.State == ConnectionState.Closed) { ProductUpdate.Connection.Open(); }
+                if (ProductHistory.Connection.State == ConnectionState.Closed) { ProductHistory.Connection.Open(); }
+                ProductUpdate.ExecuteNonQuery();
+                ProductHistory.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
@@ -246,8 +296,10 @@ namespace OnlyEPOS.Menus
             }
             finally
             {
-                if (cmd.Connection.State == ConnectionState.Open) { cmd.Connection.Close(); }
-                cmd.Dispose();
+                if (ProductUpdate.Connection.State == ConnectionState.Open) { ProductUpdate.Connection.Close(); }
+                if (ProductHistory.Connection.State == ConnectionState.Open) { ProductHistory.Connection.Close(); }
+                ProductUpdate.Dispose();
+                ProductHistory.Dispose();
             }
         }
 

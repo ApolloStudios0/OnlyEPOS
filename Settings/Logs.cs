@@ -21,12 +21,10 @@ namespace OnlyEPOS.Settings
             {
                 // Get Call Method & Time For Logs
                 var TimeNow = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                StackTrace stackTrace = new StackTrace();
+                StackTrace stackTrace = new();
                 // Write Log Using Stream
-                using (StreamWriter sw = File.AppendText("SystemLogs/SystemLogs.txt"))
-                {
-                    sw.WriteLine($"🚀 ~ {TimeNow} [Caller: {stackTrace.GetFrame(1).GetMethod().Name}] ~ {ErrorToLog}");
-                }
+                using StreamWriter sw = File.AppendText("SystemLogs/SystemLogs.txt");
+                sw.WriteLine($"🚀 ~ {TimeNow} [Caller: {stackTrace.GetFrame(1).GetMethod().Name}] ~ {ErrorToLog}");
             }
         }
     }
