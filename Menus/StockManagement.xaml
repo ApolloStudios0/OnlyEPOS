@@ -236,7 +236,37 @@
                                     </Border>
                                 </avalondock:LayoutDocument>
                                 <avalondock:LayoutDocument Title="Suppliers">
-                                    <TextBox>This is the stock manager main screen</TextBox>
+                                    <Border>
+                                        <Grid>
+
+                                            <StackPanel Grid.Column="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                                <TextBlock Width="10"/>
+                                                <Button Width="180" Content="Remove Supplier -" Foreground="White" FontWeight="Bold" Margin="0,0,0,0" x:Name="RemoveSupplier" Click="GlobalButtonAdvisor"/>
+                                                <TextBlock Width="10"/>
+                                                <Button Width="180" Content="Add Supplier +" Foreground="White" FontWeight="Bold" x:Name="AddSupplier" Click="GlobalButtonAdvisor"/>
+                                            </StackPanel>
+
+                                            <DataGrid x:Name="SupplierDataGrid"
+                                                  AutoGenerateColumns="True"
+                                                  CanUserAddRows="False"
+                                                  CanUserDeleteRows="False"
+                                                  IsReadOnly="True"
+                                                  GridLinesVisibility="Horizontal"
+                                                  SelectionChanged="ObtainRowValue"
+                                                  RowHeight="33"
+                                                  Grid.Row="1"
+                                                  Grid.ColumnSpan="12">
+                                            </DataGrid>
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="40"/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                        </Grid>
+                                    </Border>
                                 </avalondock:LayoutDocument>
                                 <avalondock:LayoutDocument Title="Barcodes">
                                     <Border>
@@ -255,7 +285,7 @@
                                                   CanUserDeleteRows="False"
                                                   IsReadOnly="True"
                                                   GridLinesVisibility="Horizontal"
-                                                  SelectionChanged="ObtainSelectedBarcode"
+                                                  SelectionChanged="ObtainRowValue"
                                                   RowHeight="33"
                                                   Grid.Row="1"
                                                   Grid.ColumnSpan="12">

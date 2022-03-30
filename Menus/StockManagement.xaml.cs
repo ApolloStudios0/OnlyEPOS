@@ -119,6 +119,21 @@ namespace OnlyEPOS.Menus
                             });
                         });
                     }
+                    if (SupplierDataGrid.IsVisible)
+                    {
+                        // [*] Fill Barcode Data
+                        await Task.Run(async () =>
+                        {
+                            // [*] Get Product History
+                            DataForControls = await Utility.SQL.GetSQLData($"Select [SupplierName] as 'Supplier Name',[SupplierCode] as 'Suppliers Code',[Case Cost],[Individual Cost],[Supplier Discount],[Pack Size],[Primary Supplier],[SupplierUUID] From ProductSuppliers where StockUUID = '{ProductUUID}' Order by [Primary Supplier] Desc", "OnlyEPOS");
+
+                            // [*] Set Product History
+                            SupplierDataGrid.Dispatcher.Invoke(() =>
+                            {
+                                SupplierDataGrid.ItemsSource = DataForControls.DefaultView;
+                            });
+                        });
+                    }
                 }
             }
             catch (Exception ex) { Logs.LogError(ex.Message); }
@@ -376,20 +391,29 @@ namespace OnlyEPOS.Menus
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public static string SelectedBarcode { get; set; }
-        private void ObtainSelectedBarcode(object sender, SelectionChangedEventArgs e)
+        public static string SelectedValue { get; set; }
+        private void ObtainRowValue(object sender, SelectionChangedEventArgs e)
         {
             DataGrid grid = (DataGrid)sender;
             DataRowView row_selected = grid.SelectedItem as DataRowView;
             if (row_selected is not null)
             {
-                SelectedBarcode = row_selected["Product Barcodes"].ToString();
+                switch (grid.Name)
+                {
+                    case "BarcodeDataGrid":
+                        SelectedValue = row_selected["Product Barcodes"].ToString();
+                        break;
+
+                    case "SupplierDataGrid":
+                        SelectedValue = row_selected["SupplierUUID"].ToString();
+                        break;
+                }
             }
         }
-        private async void GlobalButtonAdvisor(object sender, RoutedEventArgs e)
+        private void GlobalButtonAdvisor(object sender, RoutedEventArgs e)
         {
             Button Sender = sender as Button;
-            
+
             // Direct
             switch (Sender.Name)
             {
@@ -402,15 +426,25 @@ namespace OnlyEPOS.Menus
                 case "RemoveBarcode":
                     RemoveBarcode();
                     break;
+
+                // -- Add Product Supplier
+                case "AddSupplier":
+                    AddSupplier();
+                    break;
+
+                // -- Remove Product Supplier
+                case "RemoveSupplier":
+                    RemoveSupplier();
+                    break;
             }
-            
-            // Add A Barcode From Stock Manager
+
+            // -- Barcode Controls
             async void AddBarcode()
             {
                 // Show keyboard
                 Utility.Keyboard KB = new();
                 KB.ShowDialog();
-                
+
                 if (KB.DialogResult == true)
                 {
                     SqlCommand AddBarcode = new($"Insert Into ProductBarcodes VALUES (@StockUUID, @Barcode)", new SqlConnection(SQL.ConnectionString))
@@ -442,36 +476,97 @@ namespace OnlyEPOS.Menus
                     }
                 }
             }
-
-            // Remove A Barcode From Stock Manager
             async void RemoveBarcode()
             {
-                SqlCommand RemoveBarcode = new($"Delete From ProductBarcodes where StockUUID = @StockUUID and Barcode = @Barcode", new SqlConnection(SQL.ConnectionString))
+                var result = MessageBox.Show("Are You Sure You Want To Remove This Barcode?", "Remove Barcode", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
                 {
-                    Parameters =
+                    if (SelectedValue != "NO_VALUE")
+                    {
+                        SqlCommand RemoveBarcode = new($"Delete From ProductBarcodes where StockUUID = @StockUUID and Barcode = @Barcode", new SqlConnection(SQL.ConnectionString))
+                        {
+                            Parameters =
                     {
                         new SqlParameter("@StockUUID", ProductUUID),
-                        new SqlParameter("@Barcode", SelectedBarcode),
+                        new SqlParameter("@Barcode", SelectedValue),
                     }
-                };
-                try
-                {
-                    if (RemoveBarcode.Connection.State == ConnectionState.Closed) { RemoveBarcode.Connection.Open(); }
-                    RemoveBarcode.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Logs.LogError(ex.Message);
-                }
-                finally
-                {
-                    if (RemoveBarcode.Connection.State == ConnectionState.Open) { RemoveBarcode.Connection.Close(); }
-                    RemoveBarcode.Dispose();
+                        };
+                        try
+                        {
+                            if (RemoveBarcode.Connection.State == ConnectionState.Closed) { RemoveBarcode.Connection.Open(); }
+                            RemoveBarcode.ExecuteNonQuery();
+                        }
+                        catch (Exception ex)
+                        {
+                            Logs.LogError(ex.Message);
+                        }
+                        finally
+                        {
+                            if (RemoveBarcode.Connection.State == ConnectionState.Open) { RemoveBarcode.Connection.Close(); }
+                            RemoveBarcode.Dispose();
 
-                    // Refresh Barcode List
-                    BarcodeDataGrid.ItemsSource = null;
-                    StockData = await Utility.SQL.GetSQLData($"Select [Barcode] as 'Product Barcodes' From ProductBarcodes where StockUUID = '{ProductUUID}'", "OnlyEPOS");
-                    BarcodeDataGrid.ItemsSource = StockData.DefaultView;
+                            // Refresh Barcode List
+                            BarcodeDataGrid.ItemsSource = null;
+                            StockData = await Utility.SQL.GetSQLData($"Select [Barcode] as 'Product Barcodes' From ProductBarcodes where StockUUID = '{ProductUUID}'", "OnlyEPOS");
+                            BarcodeDataGrid.ItemsSource = StockData.DefaultView;
+                            SelectedValue = "NO_VALUE";
+                        }
+                    }
+                    else { MessageBox.Show("Please Select A Barcode To Remove", "Remove Barcode", MessageBoxButton.OK, MessageBoxImage.Error); }
+                }
+            }
+            
+            // -- Supplier Controls
+            async void AddSupplier()
+            {
+                Sub_Windows.AddNewSupplier AddSupplier = new();
+                AddSupplier.ShowDialog();
+                
+                if (AddSupplier.DialogResult == true) 
+                {
+                    // Refresh Supplier List
+                    SupplierDataGrid.ItemsSource = null;
+                    StockData = await Utility.SQL.GetSQLData($"Select [SupplierName] as 'Supplier Name',[SupplierCode] as 'Suppliers Code',[Case Cost],[Individual Cost],[Supplier Discount],[Pack Size],[Primary Supplier],[SupplierUUID] From ProductSuppliers where StockUUID = '{ProductUUID}' Order by [Primary Supplier] Desc", "OnlyEPOS");
+                    SupplierDataGrid.ItemsSource = StockData.DefaultView;
+                }
+            }
+            async void RemoveSupplier()
+            {
+                var result = MessageBox.Show("Are You Sure You Want To Remove This Supplier?", "Remove Supplier", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    if (SelectedValue != "NO_VALUE")
+                    {
+                        SqlCommand RemoveSupplier = new($"Delete From ProductSuppliers where StockUUID = @StockUUID and SupplierUUID = @SupplierUUID", new SqlConnection(SQL.ConnectionString))
+                        {
+                            Parameters =
+                    {
+                        new SqlParameter("@StockUUID", ProductUUID),
+                        new SqlParameter("@SupplierUUID", SelectedValue),
+                    }
+                        };
+                        try
+                        {
+                            if (RemoveSupplier.Connection.State == ConnectionState.Closed) { RemoveSupplier.Connection.Open(); }
+                            RemoveSupplier.ExecuteNonQuery();
+                        }
+                        catch (Exception ex)
+                        {
+                            Logs.LogError(ex.Message);
+                        }
+                        finally
+                        {
+                            if (RemoveSupplier.Connection.State == ConnectionState.Open) { RemoveSupplier.Connection.Close(); }
+                            RemoveSupplier.Dispose();
+
+                            // Refresh Barcode List
+                            SupplierDataGrid.ItemsSource = null;
+                            StockData = await Utility.SQL.GetSQLData($"Select [SupplierName] as 'Supplier Name',[SupplierCode] as 'Suppliers Code',[Case Cost],[Individual Cost],[Supplier Discount],[Pack Size],[Primary Supplier],[SupplierUUID] From ProductSuppliers where StockUUID = '{ProductUUID}' Order by [Primary Supplier] Desc", "OnlyEPOS");
+                            SupplierDataGrid.ItemsSource = StockData.DefaultView;
+                            SelectedValue = "NO_VALUE";
+                        }
+                    }
+                    else { MessageBox.Show("Please Select A Supplier To Remove", "Remove Supplier", MessageBoxButton.OK, MessageBoxImage.Error); }
                 }
             }
         }
