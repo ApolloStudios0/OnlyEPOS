@@ -134,6 +134,11 @@ namespace OnlyEPOS.Menus
                             });
                         });
                     }
+                    if (StatsSection.IsVisible)
+                    {
+                        // [*] Fill Values
+                        ProductNameField.Content = ProductName;
+                    }
                 }
             }
             catch (Exception ex) { Logs.LogError(ex.Message); }
