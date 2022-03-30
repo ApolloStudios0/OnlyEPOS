@@ -376,7 +376,17 @@ namespace OnlyEPOS.Menus
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void GlobalButtonAdvisor(object sender, RoutedEventArgs e)
+        public static string SelectedBarcode { get; set; }
+        private void ObtainSelectedBarcode(object sender, SelectionChangedEventArgs e)
+        {
+            DataGrid grid = (DataGrid)sender;
+            DataRowView row_selected = grid.SelectedItem as DataRowView;
+            if (row_selected is not null)
+            {
+                SelectedBarcode = row_selected["Product Barcodes"].ToString();
+            }
+        }
+        private async void GlobalButtonAdvisor(object sender, RoutedEventArgs e)
         {
             Button Sender = sender as Button;
             
@@ -394,7 +404,8 @@ namespace OnlyEPOS.Menus
                     break;
             }
             
-            void AddBarcode()
+            // Add A Barcode From Stock Manager
+            async void AddBarcode()
             {
                 // Show keyboard
                 Utility.Keyboard KB = new();
@@ -423,13 +434,45 @@ namespace OnlyEPOS.Menus
                     {
                         if (AddBarcode.Connection.State == ConnectionState.Open) { AddBarcode.Connection.Close(); }
                         AddBarcode.Dispose();
+
+                        // Refresh Barcode List
+                        BarcodeDataGrid.ItemsSource = null;
+                        StockData = await Utility.SQL.GetSQLData($"Select [Barcode] as 'Product Barcodes' From ProductBarcodes where StockUUID = '{ProductUUID}'", "OnlyEPOS");
+                        BarcodeDataGrid.ItemsSource = StockData.DefaultView;
                     }
                 }
             }
-            
-            void RemoveBarcode()
+
+            // Remove A Barcode From Stock Manager
+            async void RemoveBarcode()
             {
-                
+                SqlCommand RemoveBarcode = new($"Delete From ProductBarcodes where StockUUID = @StockUUID and Barcode = @Barcode", new SqlConnection(SQL.ConnectionString))
+                {
+                    Parameters =
+                    {
+                        new SqlParameter("@StockUUID", ProductUUID),
+                        new SqlParameter("@Barcode", SelectedBarcode),
+                    }
+                };
+                try
+                {
+                    if (RemoveBarcode.Connection.State == ConnectionState.Closed) { RemoveBarcode.Connection.Open(); }
+                    RemoveBarcode.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Logs.LogError(ex.Message);
+                }
+                finally
+                {
+                    if (RemoveBarcode.Connection.State == ConnectionState.Open) { RemoveBarcode.Connection.Close(); }
+                    RemoveBarcode.Dispose();
+
+                    // Refresh Barcode List
+                    BarcodeDataGrid.ItemsSource = null;
+                    StockData = await Utility.SQL.GetSQLData($"Select [Barcode] as 'Product Barcodes' From ProductBarcodes where StockUUID = '{ProductUUID}'", "OnlyEPOS");
+                    BarcodeDataGrid.ItemsSource = StockData.DefaultView;
+                }
             }
         }
     }

@@ -255,6 +255,7 @@
                                                   CanUserDeleteRows="False"
                                                   IsReadOnly="True"
                                                   GridLinesVisibility="Horizontal"
+                                                  SelectionChanged="ObtainSelectedBarcode"
                                                   RowHeight="33"
                                                   Grid.Row="1"
                                                   Grid.ColumnSpan="12">
